@@ -16,15 +16,14 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(Request $request, UserRepository $userRepository, CardRepository $cardRepository): Response
     {
-        $id = $request->request->get('id');
-        $users = $userRepository->findOneBy(['id' => $id]);
+        $user = $this->getUser();
 
         $cards = $cardRepository->findAll();
 
 
         return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
-            'users' => $users,
+            'user' => $user,
             'cards' => $cards,
         ]);
     }

@@ -1,11 +1,10 @@
 <div class="bg-darkblue p-2">
-    {% if users %}
-        <p class="text-white text-right pr-4">Bienvenue {{ users.first_name }}</p>
+    {% if user %}
+        <p class="text-white text-right pr-4">Bienvenue {{ user.firstName }}</p>
     {% else %}
         <p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
     {% endif %}
 </div>
-
 <nav class="bg-gray-800">
     <div class="mx-auto px-2 sm:px-6 lg:px-8">
         <div class="flex h-16 items-center justify-between">

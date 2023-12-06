@@ -9,94 +9,95 @@
 {% endblock %}
 
 {% block body %}
-<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-	<div class="mx-auto max-w-2xl">
-		{% for flash_error in app.flashes('verify_email_error') %}
-			<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
-		{% endfor %}
+	<section class='h-full bg-darkblue'>
+		<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+			<div class="mx-auto max-w-2xl">
+				{% for flash_error in app.flashes('verify_email_error') %}
+					<div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+				{% endfor %}
 
-		{{ form_errors(registrationForm) }}
+				{{ form_errors(registrationForm) }}
 
-		{{ form_start(registrationForm) }}
+				{{ form_start(registrationForm) }}
 
-			<div class="container mx-auto">
-				<div class="space-y-12">
-					<div class="border-b border-gray-900/10 pb-12">
-						<h2 class="text-base font-semibold leading-7 text-white">S'enregistrer</h2>
-						<p class="mt-1 text-sm text-white leading-6 text-gray-600">Utilisez une adresse permanente où vous pouvez recevoir du courrier.</p>
+				<div class="container mx-auto">
+					<div class="space-y-12">
+						<div class="pb-12">
+							<h2 class="text-base font-semibold leading-7 text-white">S'enregistrer</h2>
+							<p class="mt-1 text-sm text-white leading-6 text-gray-600">Utilisez une adresse permanente où vous pouvez recevoir du courrier.</p>
 
-						<div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
-							<div class="sm:col-span-3">
-								<div class="mt-2 text-white">
-									{{ form_row(registrationForm.first_name)}}
+							<div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+								<div class="sm:col-span-3">
+									<div class="mt-2 text-white">
+										{{ form_row(registrationForm.first_name)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.last_name)}}
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.last_name)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.email) }}
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.email) }}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.plainPassword, {
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.plainPassword, {
 										label: 'Mot de passe'
 									}) }}
+									</div>
 								</div>
-							</div>
 
-							<div class="col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.company)}}
+								<div class="col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.company)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.fonction)}}
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.fonction)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.mobile_phone)}}
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.mobile_phone)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-3 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.house_phone)}}
+								<div class="sm:col-span-3 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.house_phone)}}
+									</div>
 								</div>
-							</div>
 
-							<div class="sm:col-span-2 text-white">
-								<div class="mt-2">
-									{{ form_row(registrationForm.agreeTerms) }}
+								<div class="sm:col-span-2 text-white">
+									<div class="mt-2">
+										{{ form_row(registrationForm.agreeTerms) }}
+									</div>
 								</div>
-							</div>
 
+							</div>
 						</div>
 					</div>
-				</div>
 
-				<div class="mt-6 flex items-center justify-end gap-x-6">
-					<button type="button" class="text-sm font-semibold leading-6 text-white" onclick="retourAccueil()">Retour</button>
-				</div>
+					<div class="mt-6 flex items-center justify-between gap-x-6">
+						<button type="button" class="font-semibold leading-6 text-white" onclick="retourAccueil()">Retour</button>
+						<button type="submit" class="font-semibold leading-6 text-white">S'enregistrer</button>
+					</div>
+					{{ form_end(registrationForm) }}
 
-				<button type="submit" class="btn text-white">S'enregistrer</button>
-				{{ form_end(registrationForm) }}
+				</div>
 
 			</div>
-
 		</div>
-	</div>
+	</section>
 	<script>
 		function retourAccueil() { // Redirige l'utilisateur vers la page d'accueil
 window.location.href = '/';

@@ -1,0 +1,46 @@
+<footer class="bg-white dark:bg-gray-900">
+		<div class="mx-auto w-full border-t border-grey border-opacity-20">
+			<div
+				class="grid grid-cols-2 gap-8 px-4 py-20">
+				<!-- Right side: Logo, Products, and Company Information -->
+				<div class="flex justify-start">
+					<div>
+						<img src="{{ asset('build/images/ISF-bleu.svg')}}" alt="Logo" class="mr-2 h-20 w-20">
+					</div>
+					<ul class="text-gray-500 dark:text-gray-400 font-medium lg:mx-44">
+						<li class="mb-4">
+							<h2>Produits</h2>
+						</li>
+						<li class="mb-4">
+							<a href="#" class="hover:underline text-grey font-normal">Carte de visite</a>
+						</li>
+					</ul>
+					<ul class="text-gray-500 dark:text-gray-400 font-medium">
+						<li class="mb-4">
+							<h2>Entreprise</h2>
+						</li>
+						<li class="mb-4">
+							<a href="#" class="hover:underline text-grey font-normal">Visitez notre site internet</a>
+						</li>
+					</ul>
+				</div>
+				<!-- Left side: Newsletter -->
+				<div class="md:col-span-1 md:col-start-2 flex justify-end">
+					<div class="max-w-md">
+						<h2 class="text-gray-500 dark:text-gray-400 font-medium">Abonnez-vous à notre newsletter</h2>
+						<h2 class="text-grey mt-3">Recevez les dernières actualités de notre entreprise</h2>
+						<div class="mt-6 flex max-w-md gap-x-4">
+							<label for="email-address" class="sr-only">Email</label>
+							<input id="email-address" name="email" type="email" autocomplete="email" required class="min-w-0 text-black flex-auto rounded-md border-0 bg-white/5 px-3.5 py-2 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="Entrer votre adresse mail">
+							<button type="submit" class="flex-none rounded-md bg-indigo-500 bg-blue px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">S'abonner</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="px-4 py-6 bg-gray-100 dark:bg-gray-700 flex items-center justify-center border-t border-grey border-opacity-20">
+				<span class="text-sm text-grey sm:text-center">© 2023
+					<a href="https://flowbite.com/">ISF Communication</a>. Tous droits réservés.
+				</span>
+			</div>
+		</div>
+</footer>

@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ACCUEIL{% endblock %}
+
+
+{% block stylesheet %}
+  {{ parent() }}
+{% endblock %}
+
+
+{% block body %}
+
+
+{% include '/components/navbar.html.twig' %}
+
+
+<!-- Container for demo purpose -->
+<div class="bg-blue flex items-center justify-center">
+  <!-- Section: Design Block -->
+  <section class="text-center">
+    <div class="px-6 w-full">
+      <h2 class="mb-12 text-5xl font-bold tracking-tight md:text-5xl xl:text-5xl text-white pt-44">
+        Créer votre carte de visite
+      </h2>
+      <p class="text-lg text-neutral-500 dark:text-neutral-300 text-white pb-44">
+        Bienvenue sur votre outil incontournable pour concevoir des cartes <br> professionnelles avec simplicité et efficacité.
+      </p>
+    </div>
+  </section>
+  <!-- Section: Design Block -->
+</div>
+
+{% include '/components/footer.html.twig' %}
+{% endblock %}

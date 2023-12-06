@@ -24,24 +24,26 @@ class RegistrationFormType extends AbstractType
                 'label' => 'Email',
                 'attr' => [
                     'placeholder' => 'example@example.com',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],
             ])
             ->add('agreeTerms', CheckboxType::class, [
-                                'mapped' => false,
-                                'label' => 'Accepter les conditions',
+                'mapped' => false,
+                'label' => ' Accepter les conditions ',
                 'constraints' => [
                     new IsTrue([
                         'message' => 'You should agree to our terms.',
                     ]),
                 ],
             ])
+            
             ->add('plainPassword', PasswordType::class, [
                 'always_empty' => false,
                 'mapped' => false,
                 'attr' => [
                     'autocomplete' => 'new-password',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
+                    'placeholder' => 'Mot de passe',
                 ],
                 'label' => 'Mot de passe',
                 'constraints' => [
@@ -61,7 +63,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'Jean',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400'
                 ],
             ])
             ->add('last_name', TextType::class, [
@@ -69,7 +71,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'Dupont',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6'
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400'
                 ],
             ])
             ->add('company', TextType::class, [
@@ -77,7 +79,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'ISF Imprimerie',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],
             ])
             ->add('fonction', TextType::class, [
@@ -85,7 +87,7 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'attr' => [
                     'placeholder' => 'Développeur web',
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],
             ])
             ->add('mobile_phone', TelType::class, [
@@ -93,7 +95,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
+                    'placeholder' => '00 00 00 00 00',
                 ]
             ])
             ->add('house_phone', TelType::class, [
@@ -101,7 +104,8 @@ class RegistrationFormType extends AbstractType
                 'mapped' => false,
                 'required' => false,
                 'attr' => [
-                    'class' => 'block w-full rounded-md border-0 py-1.5 text-white bg-[#000000] bg-opacity-10 shadow-sm ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:max-w-xs sm:text-sm sm:leading-6',
+                    'class' => 'form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
+                    'placeholder' => '00 00 00 00 00',
                 ],
             ])
         ;

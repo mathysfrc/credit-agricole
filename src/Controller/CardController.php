@@ -17,8 +17,11 @@ class CardController extends AbstractController
     #[Route('/', name: 'app_card_index', methods: ['GET'])]
     public function index(CardRepository $cardRepository): Response
     {
+        $user = $this->getUser();
+
         return $this->render('card/index.html.twig', [
             'cards' => $cardRepository->findAll(),
+            'user' => $user,
         ]);
     }
 

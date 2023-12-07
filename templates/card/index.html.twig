@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Card index{% endblock %}
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h1>Card index</h1>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Picture</th>
-                <th>Category</th>
-                <th>Title</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for card in cards %}
-            <tr>
-                <td>{{ card.id }}</td>
-                <td>{{ card.picture }}</td>
-                <td>{{ card.category }}</td>
-                <td>{{ card.title }}</td>
-                <td>
-                    <a href="{{ path('app_card_show', {'id': card.id}) }}">show</a>
-                    <a href="{{ path('app_card_edit', {'id': card.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_card_new') }}">Create new</a>
+	<section class="h-full bg-darkblue">
+		{% include './components/sidebar-admin.html.twig' %}
+		<div class="mt-8 p-4 shadow rounded-lg w-full">
+			<h2 class="text-white text-lg font-semibold pb-4">Toutes les commandes</h2>
+			<div class="my-1"></div>
+			<!-- Espacio de separación -->
+			<div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+			<!-- Línea con gradiente -->
+			<table class="w-full table-auto text-sm">
+				<thead>
+					<tr class="text-sm leading-normal">
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Catégorie</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Titre</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Description</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Photo</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for card in cards %}
+						<tr class="hover:bg-grey-lighter">
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.category }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.title }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.description }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.picture }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+								<a href="{{ path('app_card_edit', {'id': card.id}) }}" class="text-blue">Modifier</a>
+							</td>
+						</tr>
+					{% endfor %}
+					<!-- Añade más filas aquí como la anterior para cada autorización pendiente -->
+				</tbody>
+			</table>
+		</div>
+	</section>
 {% endblock %}

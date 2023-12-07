@@ -14,7 +14,7 @@ use App\Repository\CardRepository;
 class HomeController extends AbstractController
 {
     #[Route('/home', name: 'app_home')]
-    public function index(Request $request, UserRepository $userRepository, CardRepository $cardRepository): Response
+    public function index(CardRepository $cardRepository): Response
     {
         $user = $this->getUser();
 

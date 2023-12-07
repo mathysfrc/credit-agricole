@@ -15,6 +15,7 @@ class CardType extends AbstractType
             ->add('picture')
             ->add('category')
             ->add('title')
+            ->add('description')
         ;
     }
 

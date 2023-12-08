@@ -10,8 +10,30 @@
 {% block body %}
 	<section class="h-full bg-darkblue">
 		{% include './components/sidebar-admin.html.twig' %}
-		<div class="mt-8 p-4 shadow rounded-lg w-full">
-			<h2 class="text-white text-lg font-semibold pb-4">Toutes les commandes</h2>
+		<div class="mt-4 shadow rounded-lg w-full">
+
+			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
+				<h2 class="p-4 flex"> {% include 'icons/search.svg' %} &nbsp Rechercher</h2>
+			</div>
+
+			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+				<h2 class="p-4">Vue d'ensemble</h2>
+			</div>
+
+
+			<div class="flex justify-between p-4">
+				<div class="text-white text-lg font-semibold pb-4">
+					<h2>Toutes les produits</h2>
+				</div>
+
+				<div>
+					<button class="flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+						<a href="{{ path('app_card_new') }}">Ajouter</a>
+					</button>
+				</div>
+			</div>
+
+
 			<div class="my-1"></div>
 			<!-- Espacio de separación -->
 			<div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
@@ -19,20 +41,17 @@
 			<table class="w-full table-auto text-sm">
 				<thead>
 					<tr class="text-sm leading-normal">
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Produits</th>
 						<th class="py-2 px-4 font-medium text-sm text-white text-start">Catégorie</th>
-						<th class="py-2 px-4 font-medium text-sm text-white text-start">Titre</th>
-						<th class="py-2 px-4 font-medium text-sm text-white text-start">Description</th>
-						<th class="py-2 px-4 font-medium text-sm text-white text-start">Photo</th>
 						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
 					</tr>
 				</thead>
 				<tbody>
 					{% for card in cards %}
 						<tr class="hover:bg-grey-lighter">
-							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.category }}</td>
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.title }}</td>
-							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.description }}</td>
-							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.picture }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.category }}</td>
+
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
 								<a href="{{ path('app_card_edit', {'id': card.id}) }}" class="text-blue">Modifier</a>
 							</td>

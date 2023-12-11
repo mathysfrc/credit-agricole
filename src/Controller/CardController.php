@@ -28,6 +28,8 @@ class CardController extends AbstractController
     #[Route('/new', name: 'app_card_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $card = new Card();
         $form = $this->createForm(CardType::class, $card);
         $form->handleRequest($request);
@@ -42,6 +44,7 @@ class CardController extends AbstractController
         return $this->render('card/new.html.twig', [
             'card' => $card,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 
@@ -56,6 +59,8 @@ class CardController extends AbstractController
     #[Route('/{id}/edit', name: 'app_card_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Card $card, EntityManagerInterface $entityManager): Response
     {
+        $user = $this->getUser();
+
         $form = $this->createForm(CardType::class, $card);
         $form->handleRequest($request);
 
@@ -68,6 +73,7 @@ class CardController extends AbstractController
         return $this->render('card/edit.html.twig', [
             'card' => $card,
             'form' => $form,
+            'user' => $user,
         ]);
     }
 

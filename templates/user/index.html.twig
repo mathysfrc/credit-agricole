@@ -1,53 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}User index{% endblock %}
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+{% endblock %}
 
 {% block body %}
-    <h1>User index</h1>
+    <section class="h-full bg-darkblue">
+        {% include './components/sidebar-admin.html.twig' %}
+        <div class="mt-4 shadow rounded-lg w-full">
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Email</th>
-                <th>Roles</th>
-                <th>Password</th>
-                <th>IsVerified</th>
-                <th>FirstName</th>
-                <th>LastName</th>
-                <th>Company</th>
-                <th>Fonction</th>
-                <th>MobilePhone</th>
-                <th>HousePhone</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.id }}</td>
-                <td>{{ user.email }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>{{ user.password }}</td>
-                <td>{{ user.isVerified ? 'Yes' : 'No' }}</td>
-                <td>{{ user.firstName }}</td>
-                <td>{{ user.lastName }}</td>
-                <td>{{ user.company }}</td>
-                <td>{{ user.fonction }}</td>
-                <td>{{ user.mobilePhone }}</td>
-                <td>{{ user.housePhone }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            <div class="text-blue w-full font-normal text-base pb-2 text-grey">
+                <h2 class="p-4 flex"> {% include 'icons/search.svg' %} &nbsp Rechercher</h2>
+            </div>
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
+            <div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+                <h2 class="p-4">Vue d'ensemble</h2>
+            </div>
+
+
+            <div class="flex justify-between p-4">
+                <div class="text-white text-lg font-semibold pb-4">
+                    <h2>Toutes les produits</h2>
+                </div>
+
+                <div>
+					<a href="{{ path('app_user_new') }}" type="button" class="btn flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+						Ajouter
+					</a>
+                </div>
+            </div>
+
+
+            <div class="my-1"></div>
+            <!-- Espacio de separación -->
+            <div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+            <!-- Línea con gradiente -->
+            <table class="w-full table-auto text-sm">
+                <thead>
+                    <tr class="text-sm leading-normal">
+                        <th class="py-2 px-4 font-medium text-sm text-white text-start">Prénom - Nom</th>
+                        <th class="py-2 px-4 font-medium text-sm text-white text-start">Rôle</th>
+                        <th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                        <tr class="hover:bg-grey-lighter">
+                            <td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.firstName }} - {{ user.lastName }}</td>
+                            <td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.roles ? user.roles|json_encode : '' }}</td>
+
+                            <td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
+                                {{ include('user/_delete_form.html.twig') }} &nbsp
+                                | &nbsp
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class=" text-blue">Modifier</a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <!-- Añade más filas aquí como la anterior para cada autorización pendiente -->
+                </tbody>
+            </table>
+        </div>
+    </section>
 {% endblock %}

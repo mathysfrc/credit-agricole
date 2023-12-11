@@ -1,34 +1,41 @@
 <div class="bg-darkblue p-2">
-    {% if user %}
-        <p class="text-white text-right pr-4">Bienvenue {{ user.firstName }}</p>
-    {% else %}
-        <p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
-    {% endif %}
+	{% if user %}
+		<div class="flex justify-end items-center text-right pr-4">
+			<p class="text-white">Bienvenue {{ user.firstName }}</p>
+			<span class="text-white">&nbsp | &nbsp</span>
+			<a href="/logout" class="inline-block">{% include 'icons/logout.svg' %}</a>
+		</div>
+
+
+	{% else %}
+		<p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
+	{% endif %}
+
 </div>
 <nav class="bg-gray-800 border-b border-grey border-opacity-20">
-    <div class="mx-auto px-2 sm:px-6 lg:px-8">
-        <div class="flex h-16 items-center justify-between">
-            <div class="hidden sm:flex items-center">
-                <img class="h-8 w-auto" src="{{ asset('build/images/ISF-bleu.svg' )}}" alt="Logo couleur">
+	<div class="mx-auto px-2 sm:px-6 lg:px-8">
+		<div class="flex h-16 items-center justify-between">
+			<div class="hidden sm:flex items-center">
+				<img class="h-8 w-auto" src="{{ asset('build/images/ISF-bleu.svg' )}}" alt="Logo couleur">
 
-            </div>
+			</div>
 
-            <!-- Centered Menu Tab -->
-
-
-            <div class="flex items-center justify-center mx-auto">
-                <a href="{{ path('app_home')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Menu</a>
-            </div>
+			<!-- Centered Menu Tab -->
 
 
-            <div class="flex items-center">
-                <div class="flex-shrink-0">
-                    <button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                        <span class="absolute -inset-1.5"></span>
-                        <img class="h-8 w-auto" src="{{ asset('build/images/Panier.svg' )}}" alt="Logo couleur">
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
+			<div class="flex items-center justify-center mx-auto">
+				<a href="{{ path('app_home')}}" class="text-gray-300 hover:bg-gray-700 hover:text-white rounded-md px-3 py-2 text-sm font-medium">Menu</a>
+			</div>
+
+
+			<div class="flex items-center">
+				<div class="flex-shrink-0">
+					<button type="button" class="relative rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+						<span class="absolute -inset-1.5"></span>
+						<img class="h-8 w-auto" src="{{ asset('build/images/Panier.svg' )}}" alt="Panier">
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </nav>

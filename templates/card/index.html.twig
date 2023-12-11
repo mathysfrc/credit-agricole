@@ -27,9 +27,9 @@
 				</div>
 
 				<div>
-					<button class="flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
-						<a href="{{ path('app_card_new') }}">Ajouter</a>
-					</button>
+					<a href="{{ path('app_card_new') }}" type="button" class="btn flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+						Ajouter
+					</a>
 				</div>
 			</div>
 
@@ -52,8 +52,10 @@
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.title }}</td>
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.category }}</td>
 
-							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
-								<a href="{{ path('app_card_edit', {'id': card.id}) }}" class="text-blue">Modifier</a>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
+							    {{ include('card/_delete_form.html.twig') }} &nbsp
+								| &nbsp
+								<a href="{{ path('app_card_edit', {'id': card.id}) }}" class=" text-blue">Modifier</a>
 							</td>
 						</tr>
 					{% endfor %}

@@ -19,10 +19,17 @@ class UserController extends AbstractController
     public function index(UserRepository $userRepository): Response
     {
         $user = $this->getUser();
+        $users = $userRepository->findAll();
+
+        $userIds = [];
+        foreach ($users as $user) {
+            $userIds[] = $user->getId();
+        }
 
         return $this->render('user/index.html.twig', [
             'users' => $userRepository->findAll(),
             'user' => $user,
+            'userIds' => $userIds,
         ]);
     }
 

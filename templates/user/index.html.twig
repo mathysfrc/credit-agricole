@@ -59,10 +59,10 @@
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
 								{{ include('user/_delete_form.html.twig') }}
 								&nbsp
-																                                | &nbsp
-								<a onclick="toggleSlideover('slideover-container')" href="{{ path('app_card_show', {'id': card.id}) }}" class="text-blue">Afficher</a>
+								                                | &nbsp
+								<a onclick="toggleSlideover('{{ user.id }}')" class="text-blue">Afficher</a>
 								&nbsp
-																								| &nbsp
+																| &nbsp
 								<a href="{{ path('app_user_edit', {'id': user.id}) }}" class=" text-blue">Modifier</a>
 							</td>
 						</tr>
@@ -70,6 +70,120 @@
 					<!-- Añade más filas aquí como la anterior para cada autorización pendiente -->
 				</tbody>
 			</table>
+            <div class="flex items-center justify-center">
+				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
+					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
+						<div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">
+							<a href="{{ path('app_user_index') }}">
+								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+								</svg>
+							</a>
+						</div>
+						<div id="slideover-content"></div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</section>
+
+
+
+
+    <script>
+
+		var userDetails = {
+{% for user in users %}
+'{{ user.id }}' : {
+'firstName': '{{ user.firstName }}',
+'lastName': '{{ user.lastName }}',
+'email': '{{ user.email }}',
+'roles' : {{ user.roles|json_encode|raw }},
+'company': '{{ user.company }}',
+'fonction': '{{ user.fonction }}',
+'mobilePhone': '{{ user.mobilePhone }}',
+'housePhone': '{{ user.housePhone }}',
+},{% endfor %}
+};
+
+
+var userIds = {{ userIds|json_encode|raw }};
+console.log(userIds);
+
+
+function toggleSlideover(userId) {
+var user = userDetails[userId];
+
+if (user) {
+var slideoverContent = document.getElementById('slideover-content');
+
+
+slideoverContent.innerHTML = `
+    <table class="table">
+        <tbody>
+            <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.firstName !== undefined ? user.firstName : ''}</td>
+            </tr>
+                        <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.lastName !== undefined ? user.lastName : ''}</td>
+            </tr>
+                        <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.email !== undefined ? user.email : ''}</td>
+            </tr>
+                                    <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.roles !== undefined ? user.roles : ''}</td>
+            </tr>
+                        <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.company !== undefined ? user.company : ''}</td>
+            </tr>
+                        <tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.fonction !== undefined ? user.fonction : ''}</td>
+            </tr>
+			<tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${user.mobilePhone !== undefined ? user.mobilePhone : ''}</td>
+            </tr>
+            <tr>
+                <td class="px-4">${user.housePhone !== undefined ? user.housePhone : ''}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
+} else { // ID non trouvé
+console.error("Carte non trouvée pour l'ID :", userId);
+}
+
+var user = finduserById(userId);
+
+if (user) {
+var slideoverContent = document.getElementById('slideover-content');
+
+var slideoverContainer = document.getElementById('slideover-container');
+slideoverContainer.classList.toggle('invisible');
+
+var slideoverBg = document.getElementById('slideover-bg');
+slideoverBg.classList.toggle('opacity-0');
+slideoverBg.classList.toggle('opacity-75');
+
+slideoverBg.classList.toggle('slideover-bg-noir');
+
+var slideover = document.getElementById('slideover');
+slideover.classList.toggle('translate-x-full');
+
+} else {
+console.error("Carte non trouvée pour l'ID :", userId);
+}
+}
+
+
+function finduserById(userId) {
+console.log(userIds);
+console.log(userId);
+return userIds.find(function (id) {
+return parseInt(id) === parseInt(userId);
+});
+
+}
+	</script>
 {% endblock %}

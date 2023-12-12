@@ -70,16 +70,16 @@
 
 			<div class="flex items-center justify-center">
 				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
-					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute bg-gray-900 opacity-0"></div>
-					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-white h-full absolute right-0 duration-300 ease-out transition-all translate-x-full">
-						<div class="absolute cursor-pointer text-gray-600 flex items-center justify-center">
-							<a href="{{ path('app_card_index') }}">
+					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
+       <div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">							<a href="{{ path('app_card_index') }}">
 								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 								</svg>
 							</a>
+							</div>
 							<div id="slideover-content"></div>
-						</div>
+						
 					</div>
 				</div>
 			</div>
@@ -102,41 +102,39 @@
 var cardIds = {{ cardIds|json_encode|raw }};
 console.log(cardIds);
 
+
 function toggleSlideover(cardId) {
 var card = cardDetails[cardId];
 
 if (card) {
 var slideoverContent = document.getElementById('slideover-content');
 
+
 slideoverContent.innerHTML = `
-                        <table class="table">
-                            <tbody>
-                                <tr>
-                                    <th>Image</th>
-                                    <td>${
-card.picture !== undefined ? card.picture : ''
-}</td>
-                                </tr>
-                                <tr>
-                                    <th>Catégorie</th>
-                                    <td>${
-card.category !== undefined ? card.category : ''
-}</td>
-                                </tr>
-                                <tr>
-                                    <th>Titre</th>
-                                    <td>${
-card.title !== undefined ? card.title : ''
-}</td>
-                                </tr>
-								    <th>Description</th>
-                                    <td>${
-card.description !== undefined ? card.description : ''
-}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    `;
+    <table class="table">
+        <tbody>
+            <tr>
+                <td>
+                    ${
+                        card.picture !== undefined && card.picture !== ''
+                            ? `<img src="${card.picture}" alt="Image" class="w-full mt-3">`
+                            : `<img src="http://127.0.0.1:8000/build/images/placeholder.0f72460f.png" alt="Image de substitution" class="w-full mt-8">`
+                    }
+                </td>
+            </tr>
+			<tr>
+                <td class="font-semibold text-2xl mb-2 px-4">${card.title !== undefined ? card.title : ''}</td>
+            </tr>
+            <tr>
+                <td class="px-4">${card.category !== undefined ? card.category : ''}</td>
+            </tr>
+            <tr class="grid">
+                <th class="text-start mt-8 mb-2 px-4">Description :</th>
+                <td class="text-grey text-sm px-4 text-justify">${card.description !== undefined ? card.description : ''}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
 } else { // ID non trouvé
 console.error("Carte non trouvée pour l'ID :", cardId);
 }
@@ -151,10 +149,13 @@ slideoverContainer.classList.toggle('invisible');
 
 var slideoverBg = document.getElementById('slideover-bg');
 slideoverBg.classList.toggle('opacity-0');
-slideoverBg.classList.toggle('opacity-50');
+slideoverBg.classList.toggle('opacity-75');
+
+slideoverBg.classList.toggle('slideover-bg-noir');
 
 var slideover = document.getElementById('slideover');
 slideover.classList.toggle('translate-x-full');
+
 } else {
 console.error("Carte non trouvée pour l'ID :", cardId);
 }

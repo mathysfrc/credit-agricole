@@ -15,13 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class CardController extends AbstractController
 {
     #[Route('/', name: 'app_card_index', methods: ['GET'])]
-    public function index(CardRepository $cardRepository): Response
+    public function index(Request $request, CardRepository $cardRepository): Response
     {
         $user = $this->getUser();
+        $cards = $cardRepository->findAll(); // Modification ici pour obtenir toutes les cartes
+    
+        // Utilisez une boucle pour obtenir les IDs de toutes les cartes
+        $cardIds = [];
+        foreach ($cards as $card) {
+            $cardIds[] = $card->getId();
+        }
+
 
         return $this->render('card/index.html.twig', [
-            'cards' => $cardRepository->findAll(),
+            'cards' => $cards,
             'user' => $user,
+            'cardIds' => $cardIds,
         ]);
     }
 

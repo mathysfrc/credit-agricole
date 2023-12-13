@@ -26,6 +26,9 @@ class Card
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $pictureProduct = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -75,6 +78,18 @@ class Card
     public function setDescription(string $description): static
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getPictureProduct(): ?string
+    {
+        return $this->pictureProduct;
+    }
+
+    public function setPictureProduct(?string $pictureProduct): static
+    {
+        $this->pictureProduct = $pictureProduct;
 
         return $this;
     }

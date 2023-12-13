@@ -97,7 +97,7 @@
 		var cardDetails = {
 {% for card in cards %}
 '{{ card.id }}' : {
-'picture': '{{ card.picture }}',
+'pictureProduct': '{{ card.pictureProduct }}',
 'category': '{{ card.category }}',
 'title': '{{ card.title }}',
 'description': '{{ card.description }}'
@@ -122,8 +122,8 @@ slideoverContent.innerHTML = `
             <tr>
                 <td>
                     ${
-card.picture !== undefined && card.picture !== '' ? `<img src="${
-card.picture
+card.pictureProduct !== undefined && card.pictureProduct !== '' ? `<img src="${
+card.pictureProduct
 }" alt="Image" class="w-full mt-3">` : `<img src="http://127.0.0.1:8000/build/images/placeholder.0f72460f.png" alt="Image de substitution" class="w-full mt-8">`
 }
                 </td>

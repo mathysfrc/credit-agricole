@@ -55,17 +55,19 @@
 										</div>
 									</div>
 
-									<!-- Image Field -->
-									<div class="text-white">
-										<div class="mt-2">
-											{{ form_row(form.picture, {'attr': {'required': false}}) }}
-										</div>
-									</div>
-
 									<!-- Description Field -->
 									<div class="sm:col-span-3 text-white">
 										<div class="mt-2">
 											{{ form_row(form.description) }}
+										</div>
+									</div>
+
+									<!-- Image Field -->
+									<div class="sm:col-span-3 text-white">
+										<div class="mt-2">
+											{{ form_start(form) }}
+											{{ form_row(form.pictureProduct) }}
+											{{ form_end(form) }}
 										</div>
 									</div>
 

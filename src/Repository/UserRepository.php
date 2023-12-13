@@ -31,6 +31,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         return $this->find($id);
     }
 
+    public function findLikeName(string $name = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('u')
+            ->orderBy('u.lastName', 'ASC');
+    
+        if (!empty($name)) {
+            $queryBuilder->where('u.lastName LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+    
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */

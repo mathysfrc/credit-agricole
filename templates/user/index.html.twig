@@ -13,9 +13,13 @@
 		<div class="mt-4 shadow rounded-lg w-full">
 
 			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
-				<h2 class="p-4 flex">
-					{% include 'icons/search.svg' %}
-					&nbsp Rechercher</h2>
+				{{ form_start(formSearch, {'attr': {'class': 'flex'}}) }}
+				<div class="flex items-center ml-4">
+					{% include '/icons/search.svg' %}
+					{{ form_widget(formSearch) }}
+				</div>
+				<button type="submit"></button>
+				{{ form_end(formSearch) }}
 			</div>
 
 			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">

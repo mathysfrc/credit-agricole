@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Card;
+use App\Form\SearchProductType;
 use App\Form\CardType;
 use App\Repository\CardRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,11 +15,22 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/card')]
 class CardController extends AbstractController
 {
-    #[Route('/', name: 'app_card_index', methods: ['GET'])]
+    #[Route('/', name: 'app_card_index')]
     public function index(Request $request, CardRepository $cardRepository): Response
     {
+
+        $formSearch = $this->createForm(SearchProductType::class);
+        $formSearch->handleRequest($request);
+    
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            $cards = $cardRepository->findLikeName($search);
+        } else {
+            $cards = $cardRepository->findAll();
+        }
+
+
         $user = $this->getUser();
-        $cards = $cardRepository->findAll(); // Modification ici pour obtenir toutes les cartes
     
         // Utilisez une boucle pour obtenir les IDs de toutes les cartes
         $cardIds = [];
@@ -27,10 +39,13 @@ class CardController extends AbstractController
         }
 
 
+
+
         return $this->render('card/index.html.twig', [
             'cards' => $cards,
             'user' => $user,
             'cardIds' => $cardIds,
+            'formSearch' => $formSearch,
         ]);
     }
 

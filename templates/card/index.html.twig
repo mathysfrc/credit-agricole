@@ -13,10 +13,15 @@
 		<div class="mt-4 shadow rounded-lg w-full">
 
 			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
-				<h2 class="p-4 flex">
-					{% include 'icons/search.svg' %}
-					&nbsp Rechercher</h2>
+				{{ form_start(formSearch, {'attr': {'class': 'search-product flex'}}) }}
+				<div class="flex items-center ml-4">
+					{% include '/icons/search.svg' %}
+					{{ form_widget(formSearch) }}
+				</div>
+				<button type="submit"></button>
+				{{ form_end(formSearch) }}
 			</div>
+
 
 			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
 				<h2 class="p-4">Vue d'ensemble</h2>
@@ -72,14 +77,15 @@
 				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
 					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
 					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
-       <div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">							<a href="{{ path('app_card_index') }}">
+						<div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">
+							<a href="{{ path('app_card_index') }}">
 								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
 									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
 								</svg>
 							</a>
-							</div>
-							<div id="slideover-content"></div>
-						
+						</div>
+						<div id="slideover-content"></div>
+
 					</div>
 				</div>
 			</div>
@@ -116,21 +122,27 @@ slideoverContent.innerHTML = `
             <tr>
                 <td>
                     ${
-                        card.picture !== undefined && card.picture !== ''
-                            ? `<img src="${card.picture}" alt="Image" class="w-full mt-3">`
-                            : `<img src="http://127.0.0.1:8000/build/images/placeholder.0f72460f.png" alt="Image de substitution" class="w-full mt-8">`
-                    }
+card.picture !== undefined && card.picture !== '' ? `<img src="${
+card.picture
+}" alt="Image" class="w-full mt-3">` : `<img src="http://127.0.0.1:8000/build/images/placeholder.0f72460f.png" alt="Image de substitution" class="w-full mt-8">`
+}
                 </td>
             </tr>
 			<tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${card.title !== undefined ? card.title : ''}</td>
+                <td class="font-semibold text-2xl mb-2 px-4">${
+card.title !== undefined ? card.title : ''
+}</td>
             </tr>
             <tr>
-                <td class="px-4">${card.category !== undefined ? card.category : ''}</td>
+                <td class="px-4">${
+card.category !== undefined ? card.category : ''
+}</td>
             </tr>
             <tr class="grid">
                 <th class="text-start mt-8 mb-2 px-4">Description :</th>
-                <td class="text-grey text-sm px-4 text-justify">${card.description !== undefined ? card.description : ''}</td>
+                <td class="text-grey text-sm px-4 text-justify">${
+card.description !== undefined ? card.description : ''
+}</td>
             </tr>
         </tbody>
     </table>

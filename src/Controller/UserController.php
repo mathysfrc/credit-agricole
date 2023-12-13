@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\SearchUserType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,10 +17,20 @@ use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 class UserController extends AbstractController
 {
     #[Route('/', name: 'app_user_index', methods: ['GET'])]
-    public function index(UserRepository $userRepository): Response
+    public function index(Request $request, UserRepository $userRepository): Response
     {
+
+        $formSearch = $this->createForm(SearchUserType::class);
+        $formSearch->handleRequest($request);
+    
+        if ($formSearch->isSubmitted() && $formSearch->isValid()) {
+            $search = $formSearch->getData()['search'];
+            $users = $userRepository->findLikeName($search);
+        } else {
+            $users = $userRepository->findAll();
+        }
+
         $user = $this->getUser();
-        $users = $userRepository->findAll();
 
         $userIds = [];
         foreach ($users as $user) {
@@ -27,7 +38,8 @@ class UserController extends AbstractController
         }
 
         return $this->render('user/index.html.twig', [
-            'users' => $userRepository->findAll(),
+            'formSearch' => $formSearch,
+            'users' => $users,
             'user' => $user,
             'userIds' => $userIds,
         ]);

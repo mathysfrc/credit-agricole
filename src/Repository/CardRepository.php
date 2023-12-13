@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Card;
+use App\Form\SearchProductType;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -20,6 +21,22 @@ class CardRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Card::class);
     }
+
+    public function findLikeName(string $name = null)
+    {
+        $queryBuilder = $this->createQueryBuilder('c')
+            ->orderBy('c.title', 'ASC');
+    
+        if (!empty($name)) {
+            $queryBuilder->where('c.title LIKE :name')
+                ->setParameter('name', '%' . $name . '%');
+        }
+    
+        $query = $queryBuilder->getQuery();
+        return $query->getResult();
+    }
+    
+    
 
 //    /**
 //     * @return Card[] Returns an array of Card objects

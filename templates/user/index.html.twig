@@ -127,32 +127,39 @@ var slideoverContent = document.getElementById('slideover-content');
 slideoverContent.innerHTML = `
     <table class="table">
         <tbody>
-            <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.firstName !== undefined ? user.firstName : ''}</td>
-            </tr>
-                        <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.lastName !== undefined ? user.lastName : ''}</td>
-            </tr>
-                        <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.email !== undefined ? user.email : ''}</td>
-            </tr>
-                                    <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.roles !== undefined ? user.roles : ''}</td>
-            </tr>
-                        <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.company !== undefined ? user.company : ''}</td>
-            </tr>
-                        <tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.fonction !== undefined ? user.fonction : ''}</td>
-            </tr>
 			<tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${user.mobilePhone !== undefined ? user.mobilePhone : ''}</td>
-            </tr>
+				<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+        			<img class="image-admin-card mt-10" src="{{ asset('build/images/placeholder-people.png') }}" alt="Image de remplacement">
+				<td>
+			</tr>
             <tr>
-                <td class="px-4">${user.housePhone !== undefined ? user.housePhone : ''}</td>
+                <td class="font-semibold text-2xl px-4">${user.firstName !== undefined ? user.firstName : ''}
+           		${user.lastName !== undefined ? user.lastName : ''}</td>
             </tr>
-        </tbody>
-    </table>
+            	<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Email :</th>
+                	<td class="font-semibold text-2xl px-4 text-sm">${user.email !== undefined ? user.email : ''}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Rôle :</th>
+               	 	<td class="font-semibold text-2xl px-4 text-sm">${user.roles !== undefined ? user.roles : ''}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Travaille chez :</th>
+                	<td class="font-semibold text-sm px-4">${user.company !== undefined ? user.company : ''}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">En temps que :</th>
+					<td class="font-semibold text-sm px-4">${user.fonction !== undefined ? user.fonction : ''}</td>
+            	</tr>
+				<tr>
+                	<td class="font-semibold text-sm px-4">${user.mobilePhone !== undefined ? user.mobilePhone : ''}</td>
+            	</tr>
+            	<tr>
+                	<td class="px-4 font-semibold text-sm">${user.housePhone !== undefined ? user.housePhone : ''}</td>
+            	</tr>
+        	</tbody>
+    	</table>
 `;
 } else { // ID non trouvé
 console.error("Carte non trouvée pour l'ID :", userId);

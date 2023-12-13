@@ -1,18 +1,21 @@
-<div class="flex flex-wrap justify-start">
+<div class="flex flex-wrap justify-between">
     {% for card in cards %}
-    <div class="max-w-sm mx-5 mt-8 mb-4">
-        <div class="bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-            <a href="{{ path('app_details', {'id' : card.id})}}">
-            <div class="overflow-hidden object-cover aspect-square bg-lightgrey">
-                <img class="image rounded-t-lg object-cover" src="{{ asset('build/images/placeholder.png')}}" alt="image"/>
+        <div class="max-w-sm mx-5 mt-8 mb-4">
+            <div class="back-image-home bg-white rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                <a href="{{ path('app_details', {'id' : card.id})}}">
+                    <div class="overflow-hidden aspect-square bg-lightgrey flex items-center justify-center">
+                        {% if card.pictureProduct is defined and card.pictureProduct is not empty %}
+                            <img class="image-home image rounded-t-lg object-cover" src="{{ asset('uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Product Image">
+                        {% else %}
+                            <img class="image rounded-t-lg object-cover" src="{{ asset('build/images/placeholder.png')}}" alt="Placeholder Image">
+                        {% endif %}
+                    </div>
+                </a>
             </div>
-            </a>
+            <div class="text-center mt-6">
+                <div class="text-sm text-grey">{{ card.category }}</div>
+                <div class="text-lg font-semibold">{{ card.title }}</div>
+            </div>
         </div>
-        <div class="text-center mt-6">
-            <div class="text-sm text-grey">{{ card.category }}</div>
-            <div class="text-lg font-semibold">{{ card.title }}</div>
-        </div>
-    </div>
     {% endfor %}
 </div>
-

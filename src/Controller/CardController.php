@@ -20,7 +20,6 @@ class CardController extends AbstractController
     #[Route('/', name: 'app_card_index')]
     public function index(Request $request, CardRepository $cardRepository): Response
     {
-
         $formSearch = $this->createForm(SearchProductType::class);
         $formSearch->handleRequest($request);
     
@@ -28,9 +27,8 @@ class CardController extends AbstractController
             $search = $formSearch->getData()['search'];
             $cards = $cardRepository->findLikeName($search);
         } else {
-            $cards = $cardRepository->findAll();
+            $cards = $cardRepository->findAll();  // Utilisez $cards au lieu de $card
         }
-
 
         $user = $this->getUser();
     
@@ -39,17 +37,17 @@ class CardController extends AbstractController
         foreach ($cards as $card) {
             $cardIds[] = $card->getId();
         }
-
-
-
+        
 
         return $this->render('card/index.html.twig', [
-            'cards' => $cards,
+            'cards' => $cards,  // Utilisez $cards au lieu de $card
             'user' => $user,
             'cardIds' => $cardIds,
             'formSearch' => $formSearch,
         ]);
     }
+
+
 
     #[Route('/new', name: 'app_card_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response

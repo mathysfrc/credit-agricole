@@ -96,12 +96,13 @@
 
 		var cardDetails = {
 {% for card in cards %}
-'{{ card.id }}' : {
-'pictureProduct': '{{ card.pictureProduct }}',
-'category': '{{ card.category }}',
-'title': '{{ card.title }}',
-'description': '{{ card.description }}'
-},{% endfor %}
+    '{{ card.id }}' : {
+        'pictureProduct': '{% if card.pictureProduct is defined and card.pictureProduct is not empty %}{{ asset('/uploads/pictureProduct/') ~ card.pictureProduct }}{% else %}{{ asset('build/images/placeholder.png')}}{% endif %}',
+        'category': '{{ card.category }}',
+        'title': '{{ card.title }}',
+        'description': '{{ card.description }}'
+    },
+{% endfor %}
 };
 
 
@@ -119,17 +120,17 @@ var slideoverContent = document.getElementById('slideover-content');
 slideoverContent.innerHTML = `
     <table class="table">
         <tbody>
-            <tr>
-                <td>
-                    ${
-card.pictureProduct !== undefined && card.pictureProduct !== '' ? `<img src="${
-card.pictureProduct
-}" alt="Image" class="w-full mt-3">` : `<img src="http://127.0.0.1:8000/build/images/placeholder.0f72460f.png" alt="Image de substitution" class="w-full mt-8">`
-}
-                </td>
-            </tr>
-			<tr>
-                <td class="font-semibold text-2xl mb-2 px-4">${
+     <tr>
+<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+    {% if card.pictureProduct is defined and card.pictureProduct is not empty %}
+        <img class="image-admin-card" src="{{ asset('/uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Image du produit">
+    {% else %}
+        <img class="image-admin-card" src="{{ asset('build/images/placeholder.png') }}" alt="Image de remplacement">
+    {% endif %}
+</td>
+    </tr>
+	<tr>
+                <td class="font-semibold text-2xl mb-2 mt-2 px-4">${
 card.title !== undefined ? card.title : ''
 }</td>
             </tr>

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CardRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -13,9 +15,6 @@ class Card
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
-
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $picture = null;
 
     #[ORM\Column(length: 255)]
     private ?string $category = null;
@@ -29,21 +28,24 @@ class Card
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $pictureProduct = null;
 
+    #[ORM\OneToMany(mappedBy: 'card', targetEntity: Order::class)]
+    private Collection $orders;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $quantity = null;
+
+    #[ORM\OneToMany(mappedBy: 'card', targetEntity: Item::class)]
+    private Collection $items;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+        $this->items = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getPicture(): ?string
-    {
-        return $this->picture;
-    }
-
-    public function setPicture(?string $picture): static
-    {
-        $this->picture = $picture;
-
-        return $this;
     }
 
     public function getCategory(): ?string
@@ -90,6 +92,78 @@ class Card
     public function setPictureProduct(?string $pictureProduct): static
     {
         $this->pictureProduct = $pictureProduct;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getCard() === $this) {
+                $order->setCard(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getQuantity(): ?string
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(?string $quantity): static
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Item>
+     */
+    public function getItems(): Collection
+    {
+        return $this->items;
+    }
+
+    public function addItem(Item $item): static
+    {
+        if (!$this->items->contains($item)) {
+            $this->items->add($item);
+            $item->setCard($this);
+        }
+
+        return $this;
+    }
+
+    public function removeItem(Item $item): static
+    {
+        if ($this->items->removeElement($item)) {
+            // set the owning side to null (unless already changed)
+            if ($item->getCard() === $this) {
+                $item->setCard(null);
+            }
+        }
 
         return $this;
     }

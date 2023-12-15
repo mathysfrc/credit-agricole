@@ -5,6 +5,7 @@ namespace App\Form;
 use App\Entity\Card;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -57,6 +58,13 @@ class CardType extends AbstractType
                 'placeholder' => 'Carte de visite',
                 'class' => 'form-control block w-full rounded-md py-1.5 mt-2 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
             ],
+        ])
+        ->add('quantity', ChoiceType::class, [
+            'label' => 'Quantité',
+            'choices' => [
+                '12' => 12,
+                '24' => 24,
+            ]
         ])
         ;
     }

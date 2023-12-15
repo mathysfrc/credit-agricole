@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}CONFIRMATION
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {% include '/components/navbar.html.twig' %}
+
+    <h1 class="text-5xl font-bold flex justify-center px-8 my-10">Votre panier</h1>
+
+    {% for item in items %}
+        <div class="flex w-2/5 justify-start m-auto border-t pt-10 border-grey border-opacity-20 pb-10">
+            <div class="overflow-hidden aspect-square bg-lightgrey rounded-lg flex items-center justify-center">
+                {% if card.pictureProduct is defined and card.pictureProduct is not empty %}
+                    <img class="image-basket image rounded-lg object-cover" src="{{ asset('uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Product Image">
+                {% else %}
+                    <img class="image-basket rounded-t-lg object-cover" src="{{ asset('build/images/placeholder.png')}}" alt="Placeholder Image">
+                {% endif %}
+            </div>
+            <div class="ml-4 flex justify-between w-full"> {# Make sure to set w-full here #}
+                <div class="flex-grow">
+                    <h2 class="text-lg font-semibold mb-2">{{ item.card.title }}</h2>
+                    <p class="text-grey">{{ item.lastName }}
+                        {{ item.firstName }}</p>
+                    <p class="text-grey">{{ item.fonction }}</p>
+                    <p class="text-grey">{{ item.email }}</p>
+                    <p class="text-grey">
+                        {% if item.housePhone is defined %}
+                            {{ item.housePhone }}
+                        {% endif %}
+                        /
+                        {% if item.mobilePhone is defined %}
+                            {{ item.mobilePhone }}
+                        {% endif %}
+                    </p>
+                    <div class="w-11">
+                        <p class="border border-grey border-opacity-20 rounded-lg px-3 py-2 mt-2">{{ item.quantity }}</p>
+                    </div>
+                </div>
+                <div class="w-20 flex items-center justify-end"> {# Adjust the width as needed #}
+                    <a href="{{ path('app_basket_delete', {'id' : item.id} ) }}" class="text-red-500 hover:underline">{% include 'icons/delete.svg' %}</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <a href="" type="button" class="flex w-2/5 justify-center m-auto bg-blue border border-grey border-opacity-20 text-white font-semibold py-4 rounded">Commander</a>
+    {% include '/components/footer.html.twig' %}
+{% endblock %}

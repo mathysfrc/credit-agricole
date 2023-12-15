@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -39,7 +40,8 @@ class UserType extends AbstractType
             ])
             ->add('password', PasswordType::class, [
                 'label' => 'Mot de passe',
-                'required' => true,
+                'required' => false,
+                'mapped' => false,
                 'attr' => [
                     'class' => 'form-control block w-full rounded-md py-1.5 mt-2 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],
@@ -68,6 +70,7 @@ class UserType extends AbstractType
             ->add('company', TextType::class, [
                 'label' => 'Entreprise',
                 'required' => true,
+                'mapped' => false,
                 'attr' => [
                     'class' => 'form-control block w-full rounded-md py-1.5 mt-2 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],

@@ -71,8 +71,11 @@ class ItemController extends AbstractController
             $entityManager->persist($basket);
             $entityManager->flush();
             
+            $this->addFlash('success', 'Vous avez ajouté un article dans votre panier');
+
+
             // Redirigez vers le contrôleur suivant
-            return $this->redirectToRoute('app_home');
+            return $this->redirectToRoute('app_basket');
         }
 
     

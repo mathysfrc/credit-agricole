@@ -2,13 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Card;
 use App\Entity\Item;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ItemType extends AbstractType
+class Item1Type extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -19,13 +20,10 @@ class ItemType extends AbstractType
             ->add('email')
             ->add('mobilePhone')
             ->add('housePhone')
-            ->add('quantity', ChoiceType::class, [
-                'choices' => [
-                    '12' => 12,
-                    '24' => 24,
-                    '48' => 48,
-                    '96' => 96,
-                ]
+            ->add('quantity')
+            ->add('card', EntityType::class, [
+                'class' => Card::class,
+'choice_label' => 'id',
             ])
         ;
     }

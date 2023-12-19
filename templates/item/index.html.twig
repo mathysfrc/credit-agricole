@@ -33,9 +33,9 @@
 		<!-- Moitié gauche pour l'image -->
 		<div class="w-1/2 rounded-xl overflow-hidden bg-lightgrey ml-8 mt-8 mr-4">
 			{% if card.pictureProduct is defined and card.pictureProduct is not empty %}
-				<img class="image h-full w-full object-cover rounded-t-lg" src="{{ asset('uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Product Image">
+				<img class="image-details image h-full w-full object-cover rounded-t-lg" src="{{ asset('uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Product Image">
 			{% else %}
-				<img class="image h-full w-full object-cover rounded-t-lg" src="{{ asset('build/images/placeholder.png')}}" alt="Placeholder Image">
+				<img class="image-details image h-full w-full object-cover rounded-t-lg" src="{{ asset('build/images/placeholder.png')}}" alt="Placeholder Image">
 			{% endif %}
 		</div>
 
@@ -142,26 +142,7 @@
 			</div>
 			<button type="submit" class="bg-blue border border-grey border-opacity-20 w-full mt-10 text-white font-semibold py-2 px-4 rounded" id="add-to-cart-btn">Ajouter au panier</button>
 		</div>
-		<div id="notification" class="fixed top-0 right-0 p-4 bg-grey text-white hidden rounded-md shadow-md">
-			Le produit a été ajouté à votre panier
-		</div>
 	</div>
 	{{ form_end(form )}}
 	{% include '/components/footer.html.twig' %}
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-var addToCartBtn = document.getElementById('add-to-cart-btn');
-var notification = document.getElementById('notification');
-
-addToCartBtn.addEventListener('click', function () { // Afficher la notification
-notification.style.display = 'block';
-
-// Masquer la notification après quelques secondes (par exemple, 3 secondes)
-setTimeout(function () {
-notification.style.display = 'none';
-}, 3000);
-});
-});
-	</script>
 {% endblock %}

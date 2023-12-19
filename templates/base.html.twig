@@ -18,7 +18,28 @@
 			{{ encore_entry_script_tags('app') }}
 		{% endblock %}
 	</head>
-	<body class="h-full"> 
-    {% block body %}{% endblock %}
+	<body class="h-full">
+		{% block flash %}
+			{% for category, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="flash">
+						<div class="alert alert--{{ category}}">
+							{{ message }}
+						</div>
+					</div>
+
+					<script>
+						document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+document.querySelector('.alert').style.display = 'none';
+document.querySelector('.flash').style.display = 'none';
+
+}, 3000); // Délai en millisecondes (3 secondes dans cet exemple)
+});
+					</script>
+				{% endfor %}
+			{% endfor %}
+		{% endblock %}
+		{% block body %}{% endblock %}
 	</body>
 </html>

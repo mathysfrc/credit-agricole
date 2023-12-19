@@ -30,7 +30,7 @@
 
 			<div class="flex justify-between p-4">
 				<div class="text-white text-lg font-semibold pb-4">
-					<h2>Toutes les produits</h2>
+					<h2>Tous les produits</h2>
 				</div>
 
 				<div>
@@ -97,7 +97,7 @@
 		var cardDetails = {
 {% for card in cards %}
     '{{ card.id }}' : {
-        'pictureProduct': '{% if card.pictureProduct is defined and card.pictureProduct is not empty %}{{ asset('/uploads/pictureProduct/') ~ card.pictureProduct }}{% else %}{{ asset('build/images/placeholder.png')}}{% endif %}',
+        {# 'pictureProduct': '{% if card.pictureProduct is defined and card.pictureProduct is not empty %}{{ asset(\'/uploads/pictureProduct/\') ~ card.pictureProduct }}{% else %}{{ asset(\'build/images/placeholder.png\')}}{% endif %}', #}
         'category': '{{ card.category }}',
         'title': '{{ card.title }}',
         'description': '{{ card.description }}'

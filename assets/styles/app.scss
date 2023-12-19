@@ -3,12 +3,12 @@
 @import "tailwindcss/utilities";
 
 :root {
-    --white : #FFFFFF;
-    --dark-blue : #111827;
-    --blue : #3D4797;
-    --grey : #64748B;
-    --black : #020617;
-    --green : #1aff00;
+    --white: #FFFFFF;
+    --dark-blue: #111827;
+    --blue: #3D4797;
+    --grey: #64748B;
+    --black: #020617;
+    --green: #1aff00;
 }
 
 .selected {
@@ -21,12 +21,12 @@
 }
 
 input#user_roles_1 {
-    border-radius : 0.25rem;
+    border-radius: 0.25rem;
     margin-left: 2rem
 }
 
 input#user_roles_0 {
-    border-radius : 0.25rem
+    border-radius: 0.25rem
 }
 
 div#user_roles {
@@ -54,4 +54,26 @@ div#user_roles {
 
 .image-basket {
     width: 300px;
+}
+
+.image-details {
+    max-width: 900px;
+    max-height: 950px;
+    margin: auto !important;
+}
+
+.flash {
+    background-color:  #b3f1ca;
+    border-radius: 5px;
+    color: #2f8f54;
+    font-weight:500;
+    width: fit-content;
+    margin: auto;
+    padding: 1rem;
+    z-index: 1000;
+    position: absolute;
+    top: 5;
+    right: 0;
+    margin-top: 7rem;
+    margin-right: 0.5rem;
 }

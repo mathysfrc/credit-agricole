@@ -31,9 +31,6 @@ class Card
     #[ORM\OneToMany(mappedBy: 'card', targetEntity: Order::class)]
     private Collection $orders;
 
-    #[ORM\Column(length: 255, nullable: true)]
-    private ?string $quantity = null;
-
     #[ORM\OneToMany(mappedBy: 'card', targetEntity: Item::class)]
     private Collection $items;
 
@@ -122,18 +119,6 @@ class Card
                 $order->setCard(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getQuantity(): ?string
-    {
-        return $this->quantity;
-    }
-
-    public function setQuantity(?string $quantity): static
-    {
-        $this->quantity = $quantity;
 
         return $this;
     }

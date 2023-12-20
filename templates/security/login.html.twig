@@ -17,23 +17,25 @@
 			</div>
 
 			<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+
+				
 				<form method="post" class="formLogin space-y-6">
 					{% if error %}
 						<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
 					{% endif %}
 
 					{% if app.user %}
-						<div class="mb-3 text-white">
+						<div class="mb-3 text-white text-center ">
 							Vous êtes connectez en temps que
 							{{ app.user.userIdentifier }},
-							<a href="{{ path('app_logout') }}">Se déconnecter</a>
+							<a href="{{ path('app_logout') }}" class="text-blue font-bold">Se déconnecter</a>
 						</div>
 					{% endif %}
 
 					<div>
 						<label for="inputEmail" class="block text-sm leading-6 text-white">Adresse mail</label>
 						<div class="mt-2">
-							<input id="inputEmail"value="{{ last_username }}"  name="email" type="email" autocomplete="email" required class="form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400">
+							<input id="inputEmail" value="{{ last_username }}" name="email" type="email" autocomplete="email" required class="form-control block w-full rounded-md py-1.5 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400">
 						</div>
 					</div>
 
@@ -52,7 +54,7 @@
 
 
 					<div>
-						<button type="submit" class="flex w-full justify-center rounded-md bg-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Se connecter</button>
+							<button type="submit" class="flex w-full justify-center rounded-md bg-blue px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">Se connecter</button>
 					</div>
 				</form>
 
@@ -65,4 +67,5 @@
 			</div>
 		</div>
 	</section>
+
 {% endblock %}

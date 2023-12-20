@@ -16,6 +16,8 @@ class HomeController extends AbstractController
     #[Route('/home', name: 'app_home')]
     public function index(CardRepository $cardRepository): Response
     {
+                /** @var \App\Entity\User $user */
+
         $user = $this->getUser();
 
         $cards = $cardRepository->findAll();
@@ -25,6 +27,7 @@ class HomeController extends AbstractController
             'controller_name' => 'HomeController',
             'user' => $user,
             'cards' => $cards,
+            'isVerified' => $user ? $user->isVerified() : false, // Adjust accordingly based on your user entity
         ]);
     }
 }

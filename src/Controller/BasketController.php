@@ -34,7 +34,6 @@ class BasketController extends AbstractController
         $baskets = $user->getBaskets();
         foreach ($baskets as $basket) {
             array_push($items, $basket->getItem());
-            dump($basket->getItem());
         }
 
         return $this->render('basket/index.html.twig', [

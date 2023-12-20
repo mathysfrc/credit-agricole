@@ -1,15 +1,24 @@
 <div class="bg-darkblue p-2">
-	{% if user %}
-		<div class="flex justify-end items-center text-right pr-4">
-			<p class="text-white">Bienvenue {{ user.firstName }}</p>
-			<span class="text-white">&nbsp | &nbsp</span>
-			<a href="/logout" class="inline-block">{% include 'icons/logout.svg' %}</a>
-		</div>
+	<div class="flex items-center justify-between text-white pr-4">
+		{% if (is_granted('ROLE_ADMIN')) %}
+			<div class="items-center justify-start text-right pl-4">
+				<a href="{{ path('app_card_index') }}" class="flex">{% include 'icons/admin.svg' %}&nbsp Administration</a>
+			</div>
+		{% endif %}
 
+		{% if user %}
+			<div class="items-center justify-start text-right pl-4"></div>
+			<div class="flex items-center justify-end text-right">
+				<p class="text-white">Bienvenue
+					{{ user.firstName }}</p>
+				<span class="text-white">&nbsp;|&nbsp;</span>
+				<a href="/logout" class="inline-block">{% include 'icons/logout.svg' %}</a>
+			</div>
+		{% else %}
+			<p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
+		{% endif %}
+	</div>
 
-	{% else %}
-		<p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
-	{% endif %}
 
 </div>
 <nav class="bg-gray-800 border-b border-grey border-opacity-20">
@@ -30,7 +39,7 @@
 
 			<div class="flex items-center">
 				<div class="flex-shrink-0">
-					<a  href="{{ path('app_basket')}}">
+					<a href="{{ path('app_basket')}}">
 						<img class="h-8 w-auto" src="{{ asset('build/images/Panier.svg' )}}" alt="Panier">
 					</a>
 				</div>

@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block body %}
+{% if app.user %}
 	{% include '/components/navbar.html.twig' %}
 
 
@@ -145,4 +146,5 @@
 	</div>
 	{{ form_end(form )}}
 	{% include '/components/footer.html.twig' %}
+{% endif %}
 {% endblock %}

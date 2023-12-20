@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block body %}
+{% if app.user %}
 	{% include '/components/navbar.html.twig' %}
 
 	<div class="pt-14 px-4 md:px-6 2xl:px-20 2xl:container 2xl:mx-auto">
@@ -123,4 +124,5 @@
 		</div>
 	</div>
 	{% include '/components/footer.html.twig' %}
+	{% endif %}
 {% endblock %}

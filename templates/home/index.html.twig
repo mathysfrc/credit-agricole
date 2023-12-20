@@ -11,30 +11,52 @@
 
 {% block body %}
 
+	{% if not isVerified %}
 
-	{% include '/components/navbar.html.twig' %}
+		<section class='h-full bg-darkblue'>
+			<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+				<div class="sm:mx-auto sm:w-full sm:max-w-sm">
+					<img class="mx-auto h-10 w-auto" src=" {{ asset('build/images/ISF.svg' )}}" alt="ISF">
+				</div>
 
+				<div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+					<div class="alert alert-danger text-white text-center font-bold">Votre compte n'est pas vérifiez. Veuillez attendre qu'un administrateur le valide.</div>
+					<a href="mailto:contact@isf-boutique.fr" class="text-white text-center flex mt-5 text-xs">Si les délais vous semblent trop long, n'hésitez pas à nous relancer</a>
+					<a href="mailto:contact@isf-boutique.fr" class="text-blue flex justify-center  mt-2 text-sm m-auto font-bold">contact@isf-boutique.fr</a>
 
-	<!-- Container for demo purpose -->
-	<div
-		class="bg-blue flex items-center justify-center mb-8">
-		<!-- Section: Design Block -->
-		<section class="text-center">
-			<div class="px-6 w-full">
-				<h2 class="mb-12 text-5xl font-bold tracking-tight md:text-5xl xl:text-5xl text-white pt-44">
-					Créer votre carte de visite
-				</h2>
-				<p class="text-lg text-neutral-500 dark:text-neutral-300 text-white pb-44">
-					Bienvenue sur votre outil incontournable pour concevoir des cartes
-					<br>
-					professionnelles avec simplicité et efficacité.
-				</p>
+					<a href="{{ path('app_login') }}" type="button" class="text-white flex justify-center mt-8 bg-blue rounded py-1 font-bold">Retour</a>
+				</div>
 			</div>
 		</section>
-		<!-- Section: Design Block -->
-	</div>
-	
-	{% include '/components/card.html.twig' %}
 
-	{% include '/components/footer.html.twig' %}
+
+	{% else %}
+	{% if app.user %}
+
+		{% include '/components/navbar.html.twig' %}
+		<!-- Container for demo purpose -->
+		<div
+			class="bg-blue flex items-center justify-center mb-8">
+			<!-- Section: Design Block -->
+			<section class="text-center">
+				<div class="px-6 w-full">
+					<h2 class="mb-12 text-5xl font-bold tracking-tight md:text-5xl xl:text-5xl text-white pt-44">
+						Créer votre carte de visite
+					</h2>
+					<p class="text-lg text-neutral-500 dark:text-neutral-300 text-white pb-44">
+						Bienvenue sur votre outil incontournable pour concevoir des cartes
+						<br>
+						professionnelles avec simplicité et efficacité.
+					</p>
+				</div>
+			</section>
+			<!-- Section: Design Block -->
+		</div>
+
+
+		{% include '/components/card.html.twig' %}
+
+		{% include '/components/footer.html.twig' %}
+		{% endif %}
+	{% endif %}
 {% endblock %}

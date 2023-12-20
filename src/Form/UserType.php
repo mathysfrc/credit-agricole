@@ -47,7 +47,8 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('isVerified', CheckboxType::class, [
-                'label' => 'Accepter les conditions ?',
+                'required' => false,
+                'label' => 'Vérifié ?',
                 'attr' => [
                     'class' => 'flex rounded mt-2'
                 ]
@@ -70,7 +71,6 @@ class UserType extends AbstractType
             ->add('company', TextType::class, [
                 'label' => 'Entreprise',
                 'required' => true,
-                'mapped' => false,
                 'attr' => [
                     'class' => 'form-control block w-full rounded-md py-1.5 mt-2 text-white bg-[#000000] bg-opacity-10 placeholder:text-gray-400',
                 ],

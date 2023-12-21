@@ -41,6 +41,8 @@
 					<tr class="text-sm leading-normal">
 						<th class="py-2 px-4 font-medium text-sm text-white text-start">#</th>
 						<th class="py-2 px-4 font-medium text-sm text-white text-start">Date de la commande</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Item Id</th>
+
 						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
 
 					</tr>
@@ -55,13 +57,14 @@
 								{{ basket.item.lastName }}</td>
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ basket.lastUpdate|date('d-m-Y') }}</td>
 
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ basket.item.id }}</td>
+
 
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
 								{{ include('basket_admin/_delete_form.html.twig') }}
 								&nbsp
-																																																																																								                                | &nbsp
+																																																																																																																                                | &nbsp
 								<a href="#" onclick="toggleSlideover('{{ basket.item.id }}')" class="text-blue">Afficher</a>
-								{{ dump(basket.item.id)}}
 								&nbsp
 							</td>
 						</tr>
@@ -88,27 +91,32 @@
 
 
 	<script>
-		var basketDetails = {
+
+	
+
+var basketDetails = {};
 {% for basket in baskets %}
-'{{ basket.item.id }}' : {
-'id': '{{ basket.item.id }}',
-'firstName': '{{ basket.item.firstName }}',
-'lastName': '{{ basket.item.lastName }}',
-'email': '{{ basket.item.email }}',
-'fonction': '{{ basket.item.fonction }}',
-'mobilePhone': '{{ basket.item.mobilePhone }}',
-'housePhone': '{{ basket.item.housePhone }}',
-'quantity': '{{ basket.item.quantity }}',
-'title': '{{ basket.item.card.title }}',
-'description': '{{ basket.item.card.description }}',
-'id': '{{ basket.item.card.id }}'
-},{% endfor %}
-};
+    {% set basketId = basket.item.id|default('') %}
+    basketDetails['{{ basketId }}'] = {
+        'firstName': '{{ basket.item.firstName|default('')|e('js') }}',
+        'lastName': '{{ basket.item.lastName|default('')|e('js') }}',
+        'email': '{{ basket.item.email|default('')|e('js') }}',
+        'fonction': '{{ basket.item.fonction|default('')|e('js') }}',
+        'mobilePhone': '{{ basket.item.mobilePhone|default('')|e('js') }}',
+        'housePhone': '{{ basket.item.housePhone|default('')|e('js') }}',
+        'quantity': '{{ basket.item.quantity|default('')|e('js') }}',
+        'title': '{{ basket.item.card.title|default('')|e('js') }}',
+        'description': '{{ basket.item.card.description|default('')|e('js') }}',
+        'cardId': '{{ basket.item.card.id|default('')|e('js') }}'
+    };
+{% endfor %}
+console.log('basketDetails:', basketDetails);
 
 var basketIds = {{ basketIds|json_encode|raw }};
-console.log(basketIds);
+console.log('basketIds:', basketIds);
 
 function toggleSlideover(basketId) {
+	    console.log('toggleSlideover called with basketId:', basketId);
 var basket = basketDetails[basketId];
 
 if (basket) {
@@ -123,9 +131,6 @@ slideoverContent.innerHTML = `
                             </td>
                         </tr>
 						<th>Utilisateur :</th>
-                        <tr>
-                            <td class="font-semibold text-2xl px-4">{{ basket.item.id ? basket.item.id : '' }}</td>
-                        </tr>
                         <tr>
                             <td class="font-semibold text-2xl px-4">
                                 {{ basket.item.firstName ? basket.item.firstName : '' }}
@@ -194,11 +199,16 @@ console.error("Carte non trouvée pour l'ID :", basketId);
 }
 
 function findBasketById(basketId) {
-console.log(basketIds);
-console.log(basketId);
-return basketIds.find(function (id) {
-return parseInt(id) === parseInt(basketId);
-});
+    console.log('Searching for basketId:', basketId);
+    console.log('basketIds:', basketIds);
+
+    // Utilisez basket.item.id pour rechercher le panier par son ID
+    return basketIds.find(function (id) {
+        console.log('Comparing with basketId in basketIds:', id);
+        // Utilisation de la comparaison non stricte
+        return parseInt(id) == parseInt(basketId);
+    });
 }
+
 	</script>
 {% endblock %}

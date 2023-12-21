@@ -59,8 +59,8 @@
 							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
 								{{ include('basket_admin/_delete_form.html.twig') }}
 								&nbsp
-																																																																                                | &nbsp
-								<a href="#" onclick="toggleSlideover('{{ basket.id }}')" class="text-blue">Afficher</a>
+																																																																																								                                | &nbsp
+								<a href="#" onclick="toggleSlideover('{{ basket.item.id }}')" class="text-blue">Afficher</a>
 								{{ dump(basket.item.id)}}
 								&nbsp
 							</td>
@@ -90,14 +90,18 @@
 	<script>
 		var basketDetails = {
 {% for basket in baskets %}
-'{{ basket.id }}' : {
-'id': '{{ basket.id }}',
+'{{ basket.item.id }}' : {
+'id': '{{ basket.item.id }}',
 'firstName': '{{ basket.item.firstName }}',
 'lastName': '{{ basket.item.lastName }}',
 'email': '{{ basket.item.email }}',
 'fonction': '{{ basket.item.fonction }}',
 'mobilePhone': '{{ basket.item.mobilePhone }}',
-'housePhone': '{{ basket.item.housePhone }}'
+'housePhone': '{{ basket.item.housePhone }}',
+'quantity': '{{ basket.item.quantity }}',
+'title': '{{ basket.item.card.title }}',
+'description': '{{ basket.item.card.description }}',
+'id': '{{ basket.item.card.id }}'
 },{% endfor %}
 };
 
@@ -118,8 +122,9 @@ slideoverContent.innerHTML = `
                                 <img class="image-admin-card mt-10" src="{{ asset('build/images/placeholder-people.png') }}" alt="Image de remplacement">
                             </td>
                         </tr>
+						<th>Utilisateur :</th>
                         <tr>
-                            <td class="font-semibold text-2xl px-4">{{ basket.id ? basket.id : '' }}</td>
+                            <td class="font-semibold text-2xl px-4">{{ basket.item.id ? basket.item.id : '' }}</td>
                         </tr>
                         <tr>
                             <td class="font-semibold text-2xl px-4">
@@ -140,6 +145,29 @@ slideoverContent.innerHTML = `
                         </tr>
                         <tr>
                             <td class="px-4 font-semibold text-sm">{{ basket.item.housePhone ? basket.item.housePhone : '' }}</td>
+                        </tr>
+												<th>Carte :</th>
+
+																		                        <tr>
+																								                            <th class="text-start my-auto">Quantité : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.quantity ? basket.item.quantity : '' }}</td>
+                        </tr>
+
+						                        <tr>
+																								                            <th class="text-start my-auto">Id de la carte : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.id ? basket.item.card.id : '' }}</td>
+                        </tr>
+						                        <tr>
+																								                            <th class="text-start my-auto">Titre: </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.title ? basket.item.card.title : '' }}</td>
+                        </tr>
+						                        <tr>
+																								                            <th class="text-start my-auto">Description : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.description ? basket.item.card.description : '' }}</td>
                         </tr>
                     </tbody>
                 </table>

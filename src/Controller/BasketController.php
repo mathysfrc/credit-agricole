@@ -76,35 +76,24 @@ class BasketController extends AbstractController
     }
 
     #[Route('/clear', name: 'app_basket_clear')]
-    public function clear(EntityManagerInterface $entityManager, SessionInterface $session)
+    public function clear(EntityManagerInterface $entityManager)
     {
         // Récupérez l'utilisateur actuel
-                /** @var \App\Entity\User $user */
-
+        /** @var \App\Entity\User $user */
         $user = $this->getUser();
-    
+
         // Vérifiez si l'utilisateur est connecté
         if ($user) {
-            // Récupérez les paniers associés à l'utilisateur
-            $baskets = $user->getBaskets();
+            // Mise à jour : supprimez le lien entre l'utilisateur et les paniers sans les supprimer réellement
+            $user->setBaskets([]);
     
-            // Supprimez les paniers de l'utilisateur
-            foreach ($baskets as $basket) {
-                $entityManager->remove($basket);
-            }
-    
-            // Exécutez les suppressions
-            $entityManager->flush();
+            // Exécutez la mise à jour
         }
-    
-        // Videz également le panier dans la session
-        $session->set('basket', []);
     
         // Redirigez l'utilisateur vers la page du panier
         $redirectUrl = $this->generateUrl('app_basket');
         return new RedirectResponse($redirectUrl);
     }
-
 
     #[Route('/delete/{id}', name: 'app_basket_delete')]
     public function delete($id, EntityManagerInterface $entityManager, ItemRepository $itemRepository)

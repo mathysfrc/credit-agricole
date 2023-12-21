@@ -266,6 +266,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function setBaskets(array $baskets): void
+    {
+        foreach ($baskets as $basket) {
+            $basket->setUser($this);
+        }
+
+        $this->baskets = new ArrayCollection($baskets);
+    }
+
     public function removeBasket(Basket $basket): static
     {
         if ($this->baskets->removeElement($basket)) {

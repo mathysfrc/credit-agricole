@@ -1,0 +1,133 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <section class='h-full bg-darkblue'>
+        {% include './components/sidebar-admin.html.twig' %}
+        <div class="mt-4 shadow rounded-lg w-full">
+
+            <div class="text-blue w-full font-normal text-base pb-2 text-grey">
+                <h2 class="p-4 flex">
+                    {% include 'icons/search.svg' %}
+                    &nbsp Rechercher</h2>
+            </div>
+
+            <div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+                <h2 class="p-4">Vue d'ensemble</h2>
+            </div>
+
+
+            <div class="flex justify-between p-4">
+                <div class="text-white text-lg font-semibold pb-4">
+                    <h2>Modifier l'utilisateur</h2>
+                </div>
+            </div>
+
+
+            <div class="flex justify-center px-6 lg:px-8">
+                <div class="mx-auto max-w-2xl">
+
+                    {{ form_start(form) }}
+
+                    <div class="container mx-auto">
+                        <div class="space-y-12">
+                            <div class="pb-12">
+                                <div
+                                    class="mt-10 grid grid-cols-2 gap-x-6 gap-y-8">
+
+                                    <!-- Catégorie Field -->
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.email) }}
+                                        </div>
+                                    </div>
+
+                                    <!-- Titre Field -->
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.password) }}
+                                        </div>
+                                    </div>
+
+                                    <!-- Repeat the pattern for other fields -->
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.firstName) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.lastName) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.company) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.fonction) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.mobilePhone) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.housePhone) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.roles) }}
+                                        </div>
+                                    </div>
+
+                                    <div class="col-span-1">
+                                        <div class="mt-2 text-white">
+                                            {{ form_row(form.isVerified) }}
+                                        </div>
+                                    </div>
+
+                                    <!-- Add other fields from CardType as needed -->
+
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="mt-6 mb-8 flex items-center justify-between gap-x-6">
+                            <button type="button" class="font-semibold leading-6 text-white" onclick="retourUser()">Retour</button>
+                            <button type="submit" class="font-semibold leading-6 text-white">Modifier</button>
+                        </div>
+                        {{ form_end(form) }}
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </section>
+    <script>
+        function retourUser() { // Redirige l'utilisateur vers la page d'accueil
+window.location.href = '/user';
+}
+    </script>
+{% endblock %}

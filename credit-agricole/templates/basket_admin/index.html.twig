@@ -1,0 +1,210 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="h-full bg-darkblue">
+		{% include './components/sidebar-admin.html.twig' %}
+		<div class="mt-4 shadow rounded-lg w-full">
+
+			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
+				{{ form_start(formSearch, {'attr': {'class': 'flex'}}) }}
+				<div class="flex items-center ml-4">
+					{% include '/icons/search.svg' %}
+					{{ form_widget(formSearch) }}
+				</div>
+				<button type="submit"></button>
+				{{ form_end(formSearch) }}
+			</div>
+
+			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+				<h2 class="p-4">Vue d'ensemble</h2>
+			</div>
+
+
+			<div class="flex justify-between p-4">
+				<div class="text-white text-lg font-semibold pb-4">
+					<h2>Toutes les commandes</h2>
+				</div>
+			</div>
+
+
+			<div class="my-1"></div>
+			<div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+			<table class="w-full table-auto text-sm">
+				<thead>
+					<tr class="text-sm leading-normal">
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">#</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Date de la commande</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
+
+					</tr>
+				</thead>
+				<tbody>
+					{% for basket in baskets %}
+						<tr class="hover:bg-grey-lighter">
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+								#{{ basket.id }}
+								-
+								{{ basket.item.firstName }}
+								{{ basket.item.lastName }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ basket.lastUpdate|date('d-m-Y') }}</td>
+
+
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
+								{{ include('basket_admin/_delete_form.html.twig') }}
+								&nbsp
+																																																																																																																                                | &nbsp
+								<a href="#" onclick="toggleSlideover('{{ basket.item.id }}')" class="text-blue">Afficher</a>
+								&nbsp
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+			<div class="flex items-center justify-center">
+				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
+					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
+						<div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">
+							<a href="{{ path('app_basket_admin_index') }}">
+								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+								</svg>
+							</a>
+						</div>
+						<div id="slideover-content"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script>
+
+	
+
+var basketDetails = {};
+{% for basket in baskets %}
+    {% set basketId = basket.item.id|default('') %}
+    basketDetails['{{ basketId }}'] = {
+        'firstName': '{{ basket.item.firstName|default('')|e('js') }}',
+        'lastName': '{{ basket.item.lastName|default('')|e('js') }}',
+        'email': '{{ basket.item.email|default('')|e('js') }}',
+        'fonction': '{{ basket.item.fonction|default('')|e('js') }}',
+        'mobilePhone': '{{ basket.item.mobilePhone|default('')|e('js') }}',
+        'housePhone': '{{ basket.item.housePhone|default('')|e('js') }}',
+        'quantity': '{{ basket.item.quantity|default('')|e('js') }}',
+        'title': '{{ basket.item.card.title|default('')|e('js') }}',
+        'description': '{{ basket.item.card.description|default('')|e('js') }}',
+        'cardId': '{{ basket.item.card.id|default('')|e('js') }}'
+    };
+{% endfor %}
+console.log('basketDetails:', basketDetails);
+
+var basketIds = {{ basketIds|json_encode|raw }};
+console.log('basketIds:', basketIds);
+
+function toggleSlideover(basketId) {
+	    console.log('toggleSlideover called with basketId:', basketId);
+var basket = basketDetails[basketId];
+
+if (basket) {
+var slideoverContent = document.getElementById('slideover-content');
+
+slideoverContent.innerHTML = `
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+                                <img class="image-admin-card mt-10" src="{{ asset('build/images/placeholder-people.png') }}" alt="Image de remplacement">
+                            </td>
+                        </tr>
+						<th>Utilisateur :</th>
+                        <tr>
+                            <td class="font-semibold text-2xl px-4">
+                                {{ basket.item.firstName ? basket.item.firstName : '' }}
+                                {{ basket.item.lastName ? basket.item.lastName : '' }}
+                            </td>
+                        </tr>
+                        <tr class="flex text-start px-4">
+                            <th class="text-start my-auto">Email :</th>
+                            <td class="font-semibold text-2xl px-4 text-sm">{{ basket.item.email ? basket.item.email : '' }}</td>
+                        </tr>
+                        <tr class="flex text-start px-4">
+                            <th class="text-start my-auto">En tant que :</th>
+                            <td class="font-semibold text-sm px-4">{{ basket.item.fonction ? basket.item.fonction : '' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="font-semibold text-sm px-4">{{ basket.item.mobilePhone ? basket.item.mobilePhone : '' }}</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.housePhone ? basket.item.housePhone : '' }}</td>
+                        </tr>
+												<th>Carte :</th>
+
+																		                        <tr>
+																								                            <th class="text-start my-auto">Quantité : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.quantity ? basket.item.quantity : '' }}</td>
+                        </tr>
+
+						                        <tr>
+																								                            <th class="text-start my-auto">Id de la carte : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.id ? basket.item.card.id : '' }}</td>
+                        </tr>
+						                        <tr>
+																								                            <th class="text-start my-auto">Titre: </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.title ? basket.item.card.title : '' }}</td>
+                        </tr>
+						                        <tr>
+																								                            <th class="text-start my-auto">Description : </th>
+
+                            <td class="px-4 font-semibold text-sm">{{ basket.item.card.description ? basket.item.card.description : '' }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+} else {
+console.error("Carte non trouvée pour l'ID :", basketId);
+}
+
+var foundBasket = findBasketById(basketId);
+
+if (foundBasket) {
+var slideoverContainer = document.getElementById('slideover-container');
+var slideoverBg = document.getElementById('slideover-bg');
+var slideover = document.getElementById('slideover');
+
+slideoverContainer.classList.toggle('invisible');
+slideoverBg.classList.toggle('opacity-0');
+slideoverBg.classList.toggle('opacity-75');
+slideoverBg.classList.toggle('slideover-bg-noir');
+slideover.classList.toggle('translate-x-full');
+} else {
+console.error("Carte non trouvée pour l'ID :", basketId);
+}
+}
+
+function findBasketById(basketId) {
+    console.log('Searching for basketId:', basketId);
+    console.log('basketIds:', basketIds);
+
+    // Utilisez basket.item.id pour rechercher le panier par son ID
+    return basketIds.find(function (id) {
+        console.log('Comparing with basketId in basketIds:', id);
+        // Utilisation de la comparaison non stricte
+        return parseInt(id) == parseInt(basketId);
+    });
+}
+
+	</script>
+{% endblock %}

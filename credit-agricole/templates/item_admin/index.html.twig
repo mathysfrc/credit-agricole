@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item index{% endblock %}
+
+{% block body %}
+    <h1>Item index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>FirstName</th>
+                <th>LastName</th>
+                <th>Fonction</th>
+                <th>Email</th>
+                <th>MobilePhone</th>
+                <th>HousePhone</th>
+                <th>Quantity</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for item in items %}
+            <tr>
+                <td>{{ item.id }}</td>
+                <td>{{ item.firstName }}</td>
+                <td>{{ item.lastName }}</td>
+                <td>{{ item.fonction }}</td>
+                <td>{{ item.email }}</td>
+                <td>{{ item.mobilePhone }}</td>
+                <td>{{ item.housePhone }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>
+                    <a href="{{ path('app_item_admin_show', {'id': item.id}) }}">show</a>
+                    <a href="{{ path('app_item_admin_edit', {'id': item.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_item_admin_new') }}">Create new</a>
+{% endblock %}

@@ -1,0 +1,187 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="h-full bg-darkblue">
+		{% include './components/sidebar-admin.html.twig' %}
+		<div class="mt-4 shadow rounded-lg w-full">
+
+			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
+				{{ form_start(formSearch, {'attr': {'class': 'search-product flex'}}) }}
+				<div class="flex items-center ml-4">
+					{% include '/icons/search.svg' %}
+					{{ form_widget(formSearch) }}
+				</div>
+				<button type="submit"></button>
+				{{ form_end(formSearch) }}
+			</div>
+
+
+			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+				<h2 class="p-4">Vue d'ensemble</h2>
+			</div>
+
+
+			<div class="flex justify-between p-4">
+				<div class="text-white text-lg font-semibold pb-4">
+					<h2>Tous les produits</h2>
+				</div>
+
+				<div>
+					<a href="{{ path('app_card_new') }}" type="button" class="btn flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+						Ajouter
+					</a>
+				</div>
+			</div>
+
+
+			<div class="my-1"></div>
+			<!-- Espacio de separación -->
+			<div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+			<!-- Línea con gradiente -->
+
+			<!-- ... Autres sections ... -->
+
+			<table class="w-full table-auto text-sm">
+				<thead>
+					<tr class="text-sm leading-normal">
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Produits</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Catégorie</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for card in cards %}
+						<tr class="hover:bg-grey-lighter">
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.title }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ card.category }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
+								{{ include('card/_delete_form.html.twig') }}
+								&nbsp;|&nbsp;
+								<a onclick="toggleSlideover('{{ card.id }}')" class="text-blue">Afficher</a>
+								&nbsp;|&nbsp;
+								<a href="{{ path('app_card_edit', {'id': card.id}) }}" class="text-blue">Modifier</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+
+			<div class="flex items-center justify-center">
+				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
+					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
+						<div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">
+							<a href="{{ path('app_card_index') }}">
+								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+								</svg>
+							</a>
+						</div>
+						<div id="slideover-content"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<script>
+
+		var cardDetails = {
+{% for card in cards %}
+    '{{ card.id }}' : {
+        {# 'pictureProduct': '{% if card.pictureProduct is defined and card.pictureProduct is not empty %}{{ asset(\'/uploads/pictureProduct/\') ~ card.pictureProduct }}{% else %}{{ asset(\'build/images/placeholder.png\')}}{% endif %}', #}
+        'category': '{{ card.category }}',
+        'title': '{{ card.title }}',
+        'description': '{{ card.description }}'
+    },
+{% endfor %}
+};
+
+
+var cardIds = {{ cardIds|json_encode|raw }};
+console.log(cardIds);
+
+
+function toggleSlideover(cardId) {
+var card = cardDetails[cardId];
+
+if (card) {
+var slideoverContent = document.getElementById('slideover-content');
+
+
+slideoverContent.innerHTML = `
+    <table class="table">
+        <tbody>
+     <tr>
+<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+    {% if card.pictureProduct is defined and card.pictureProduct is not empty %}
+        <img class="image-admin-card" src="{{ asset('/uploads/pictureProduct/') ~ card.pictureProduct }}" alt="Image du produit">
+    {% else %}
+        <img class="image-admin-card" src="{{ asset('build/images/placeholder.png') }}" alt="Image de remplacement">
+    {% endif %}
+</td>
+    </tr>
+	<tr>
+                <td class="font-semibold text-2xl mb-2 mt-2 px-4">${
+card.title !== undefined ? card.title : ''
+}</td>
+            </tr>
+            <tr>
+                <td class="px-4">${
+card.category !== undefined ? card.category : ''
+}</td>
+            </tr>
+            <tr class="grid">
+                <th class="text-start mt-8 mb-2 px-4">Description :</th>
+                <td class="text-grey text-sm px-4 text-justify">${
+card.description !== undefined ? card.description : ''
+}</td>
+            </tr>
+        </tbody>
+    </table>
+`;
+} else { // ID non trouvé
+console.error("Carte non trouvée pour l'ID :", cardId);
+}
+
+var card = findCardById(cardId);
+
+if (card) {
+var slideoverContent = document.getElementById('slideover-content');
+
+var slideoverContainer = document.getElementById('slideover-container');
+slideoverContainer.classList.toggle('invisible');
+
+var slideoverBg = document.getElementById('slideover-bg');
+slideoverBg.classList.toggle('opacity-0');
+slideoverBg.classList.toggle('opacity-75');
+
+slideoverBg.classList.toggle('slideover-bg-noir');
+
+var slideover = document.getElementById('slideover');
+slideover.classList.toggle('translate-x-full');
+
+} else {
+console.error("Carte non trouvée pour l'ID :", cardId);
+}
+}
+
+
+function findCardById(cardId) {
+console.log(cardIds);
+console.log(cardId);
+return cardIds.find(function (id) {
+return parseInt(id) === parseInt(cardId);
+});
+
+}
+	</script>
+{% endblock %}

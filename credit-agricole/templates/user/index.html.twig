@@ -1,0 +1,221 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADMIN
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<section class="h-full bg-darkblue">
+		{% include './components/sidebar-admin.html.twig' %}
+		<div class="mt-4 shadow rounded-lg w-full">
+
+			<div class="text-blue w-full font-normal text-base pb-2 text-grey">
+				{{ form_start(formSearch, {'attr': {'class': 'flex'}}) }}
+				<div class="flex items-center ml-4">
+					{% include '/icons/search.svg' %}
+					{{ form_widget(formSearch) }}
+				</div>
+				<button type="submit"></button>
+				{{ form_end(formSearch) }}
+			</div>
+
+			<div class="text-blue w-full font-medium text-base border-t border-b border-grey pb-2 pt-2 border-opacity-20">
+				<h2 class="p-4">Vue d'ensemble</h2>
+			</div>
+
+
+			<div class="flex justify-between p-4">
+				<div class="text-white text-lg font-semibold pb-4">
+					<h2>Tous les utilisateurs</h2>
+				</div>
+
+				<div>
+					<a href="{{ path('app_user_new') }}" type="button" class="btn flex-none rounded-md bg-indigo-500 bg-blue px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500">
+						Ajouter
+					</a>
+				</div>
+			</div>
+
+
+			<div class="my-1"></div>
+			<!-- Espacio de separación -->
+			<div class="bg-gradient-to-r from-cyan-300 to-cyan-500 h-px mb-6"></div>
+			<!-- Línea con gradiente -->
+			<table class="w-full table-auto text-sm">
+				<thead>
+					<tr class="text-sm leading-normal">
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Prénom - Nom</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Rôle</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Email</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start">Vérifié ?</th>
+						<th class="py-2 px-4 font-medium text-sm text-white text-start"></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in users %}
+						<tr class="hover:bg-grey-lighter">
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.firstName }}
+								-
+								{{ user.lastName }}</td>
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.roles ? user.roles|json_encode : '' }}</td>
+
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.email }}</td>
+
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">{{ user.isVerified }}</td>
+
+
+							<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal flex justify-end">
+								{{ include('user/_delete_form.html.twig') }}
+								&nbsp
+																								                                | &nbsp
+								<a onclick="toggleSlideover('{{ user.id }}')" class="text-blue">Afficher</a>
+								&nbsp
+																																| &nbsp
+								<a href="{{ path('app_user_edit', {'id': user.id}) }}" class=" text-blue">Modifier</a>
+							</td>
+						</tr>
+					{% endfor %}
+					<!-- Añade más filas aquí como la anterior para cada autorización pendiente -->
+				</tbody>
+			</table>
+			<div class="flex items-center justify-center">
+				<div id="slideover-container" class="w-full h-full fixed inset-0 invisible">
+					<div onclick="toggleSlideover()" id="slideover-bg" class="w-full h-full duration-500 ease-out transition-all inset-0 absolute fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+					<div onclick="toggleSlideover()" id="slideover" class="w-96 bg-darkblue text-white h-full absolute right-0 border-l border-grey duration-300 ease-out transition-all translate-x-full">
+						<div class="absolute cursor-pointer text-gray-600 top-0 w-8 h-8 flex items-center justify-center right-0 mt-5 mr-5">
+							<a href="{{ path('app_user_index') }}">
+								<svg class="w-6 h-6" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+								</svg>
+							</a>
+						</div>
+						<div id="slideover-content"></div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<script>
+
+		var userDetails = {
+{% for user in users %}
+'{{ user.id }}' : {
+'firstName': '{{ user.firstName }}',
+'lastName': '{{ user.lastName }}',
+'email': '{{ user.email }}',
+'roles': {{ user.roles|json_encode|raw }},
+'company': '{{ user.company }}',
+'fonction': '{{ user.fonction }}',
+'mobilePhone': '{{ user.mobilePhone }}',
+'housePhone': '{{ user.housePhone }}'
+},{% endfor %}
+};
+
+
+var userIds = {{ userIds|json_encode|raw }};
+console.log(userIds);
+
+
+function toggleSlideover(userId) {
+var user = userDetails[userId];
+
+if (user) {
+var slideoverContent = document.getElementById('slideover-content');
+
+
+slideoverContent.innerHTML = `
+    <table class="table">
+        <tbody>
+			<tr>
+				<td class="py-2 px-4 border-b border-t border-grey border-opacity-20 text-white font-normal">
+        			<img class="image-admin-card mt-10" src="{{ asset('build/images/placeholder-people.png') }}" alt="Image de remplacement">
+				<td>
+			</tr>
+            <tr>
+                <td class="font-semibold text-2xl px-4">${
+user.firstName !== undefined ? user.firstName : ''
+}
+           		${
+user.lastName !== undefined ? user.lastName : ''
+}</td>
+            </tr>
+            	<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Email :</th>
+                	<td class="font-semibold text-2xl px-4 text-sm">${
+user.email !== undefined ? user.email : ''
+}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Rôle :</th>
+               	 	<td class="font-semibold text-2xl px-4 text-sm">${
+user.roles !== undefined ? user.roles : ''
+}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">Travaille chez :</th>
+                	<td class="font-semibold text-sm px-4">${
+user.company !== undefined ? user.company : ''
+}</td>
+            	</tr>
+				<tr class="flex text-start px-4">
+					<th class="text-start my-auto">En temps que :</th>
+					<td class="font-semibold text-sm px-4">${
+user.fonction !== undefined ? user.fonction : ''
+}</td>
+            	</tr>
+				<tr>
+                	<td class="font-semibold text-sm px-4">${
+user.mobilePhone !== undefined ? user.mobilePhone : ''
+}</td>
+            	</tr>
+            	<tr>
+                	<td class="px-4 font-semibold text-sm">${
+user.housePhone !== undefined ? user.housePhone : ''
+}</td>
+            	</tr>
+        	</tbody>
+    	</table>
+`;
+} else { // ID non trouvé
+console.error("Carte non trouvée pour l'ID :", userId);
+}
+
+var user = finduserById(userId);
+
+if (user) {
+var slideoverContent = document.getElementById('slideover-content');
+
+var slideoverContainer = document.getElementById('slideover-container');
+slideoverContainer.classList.toggle('invisible');
+
+var slideoverBg = document.getElementById('slideover-bg');
+slideoverBg.classList.toggle('opacity-0');
+slideoverBg.classList.toggle('opacity-75');
+
+slideoverBg.classList.toggle('slideover-bg-noir');
+
+var slideover = document.getElementById('slideover');
+slideover.classList.toggle('translate-x-full');
+
+} else {
+console.error("Carte non trouvée pour l'ID :", userId);
+}
+}
+
+
+function finduserById(userId) {
+console.log(userIds);
+console.log(userId);
+return userIds.find(function (id) {
+return parseInt(id) === parseInt(userId);
+});
+
+}
+	</script>
+{% endblock %}

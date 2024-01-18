@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html class="h-full">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>
+			{% block title %}Welcome!
+			{% endblock %}
+		</title>
+		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>♥️</text></svg>">
+		<link href="/dist/output.css" rel="stylesheet">
+		    <script src="{{ asset('build/js/canvas-editor.js') }}"></script>
+		{% block stylesheets %}
+			{{ encore_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block javascripts %}
+			{{ encore_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body class="h-full">
+		{% block flash %}
+			{% for category, messages in app.flashes %}
+				{% for message in messages %}
+					<div class="flash">
+						<div class="alert alert--{{ category}}">
+							{{ message }}
+						</div>
+					</div>
+
+					<script>
+						document.addEventListener('DOMContentLoaded', function () {
+setTimeout(function () {
+document.querySelector('.alert').style.display = 'none';
+document.querySelector('.flash').style.display = 'none';
+
+}, 3000); // Délai en millisecondes (3 secondes dans cet exemple)
+});
+					</script>
+				{% endfor %}
+			{% endfor %}
+		{% endblock %}
+		{% block body %}{% endblock %}
+		<script src="https://unpkg.com/konva@9/konva.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+	</body>
+</html>

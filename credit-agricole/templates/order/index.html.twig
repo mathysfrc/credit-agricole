@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Créer une commande
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1>Créer une commande</h1>
+
+		{# Inclure le formulaire ici #}
+		{{ form_start(form) }}
+
+		{{ form_row(form.quantity, {
+            'label': 'Quantité',
+            'attr': {
+                'class': 'form-control',
+                'placeholder': 'Entrez la quantité'
+            }
+        }) }}
+
+		{{ form_row(form.date, {
+            'label': 'Date',
+            'attr': {
+                'class': 'form-control',
+                'placeholder': 'Entrez la date'
+            }
+        }) }}
+
+        		{{ form_row(form.user, {
+    'label': 'Carte',
+    'data': user, 
+    'attr': {
+        'class': 'form-control',
+        'placeholder': 'Sélectionnez une carte'
+    }
+}) }}
+
+
+		{{ form_row(form.card, {
+    'label': 'Carte',
+    'data': card, 
+    'attr': {
+        'class': 'form-control',
+        'placeholder': 'Sélectionnez une carte'
+    }
+}) }}
+
+		<button type="submit" class="btn btn-primary mt-3">Créer la commande</button>
+
+		{{ form_end(form) }}
+	</div>
+
+    {{ app.user.firstName }}
+{% endblock %}

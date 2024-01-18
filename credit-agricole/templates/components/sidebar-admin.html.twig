@@ -1,0 +1,103 @@
+<div class="flex h-full">
+
+	<style>
+		#Main {
+			border-right: 1px solid rgba(100, 116, 137, 0.2); /* Remplacez #ccc par la couleur de bordure souhaitée */
+		}
+	</style>
+
+
+	<div id="Main" class="xl:rounded-r transform  xl:translate-x-0  ease-in-out transition duration-500 flex justify-start items-start h-full  w-full sm:w-64 bg-gray-900 flex-col">
+
+		<div class="hidden xl:flex justify-start p-8 items-center space-x-3">
+			<img class="h-12 w-auto" src=" {{ asset('build/images/ISF.svg' )}}" alt="ISF">
+		</div>
+		<div class="block-sidebar mt-6 flex flex-col justify-start items-center px-6 w-full space-y-3 pb-5 ">
+			<a href="{{ path('app_card_index')}}" class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2 rounded px-2  " onclick="selectChoice(this)">
+				{% include './icons/products.svg' %}
+				<p class="text-base leading-4 my-2 ">Produits</p>
+			</a>
+			<a href="{{ path('app_user_index')}}" class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2 rounded px-2 " onclick="selectChoice(this)">
+				{% include './icons/users.svg' %}
+				<p class="text-base leading-4  my-2 ">Utilisateurs</p>
+			</a>
+			<a href="{{ path('app_basket_admin_index')}}" class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2 rounded px-2 " onclick="selectChoice(this)">
+				{% include './icons/commandes.svg' %}
+				<p class="text-base leading-4  my-2 ">Commandes</p>
+			</a>
+			<a href="" class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2 rounded px-2 " onclick="selectChoice(this)">
+				{% include './icons/settings.svg' %}
+				<p class="text-base leading-4  my-2 ">Réglages</p>
+			</a>
+
+			<a href="{{ path('app_home') }}" class="flex jusitfy-start items-center w-full  space-x-6 focus:outline-none text-white focus:text-indigo-400 py-2 rounded px-2 ">
+				{% include './icons/home.svg' %}
+			</a>
+		</div>
+		<div class="fixed bottom-0 left-0 w-full bg-gray-800 p-8 flex justify-between items-center">
+			<div class="flex items-center space-x-2">
+				<div>
+					<img class="rounded-full" src="{{ asset('build/images/placeholder-user.png')}}" alt="avatar"/>
+				</div>
+				<div class="flex flex-col items-start">
+					<a href="/logout" class="cursor-pointer text-sm leading-5 text-white">{{ user.firstName }}
+						{{ user.lastName }}</a>
+				</div>
+			</div>
+		</div>
+
+	</div>
+	<script>
+
+let selectedButton = null;
+
+function selectChoice(button) {
+    // Désélectionne le bouton précédemment sélectionné
+    if (selectedButton) {
+        selectedButton.classList.remove('selected-choice');
+    }
+    // Sélectionne le nouveau bouton
+    button.classList.add('selected-choice');
+    console.log('Button cliqué :', button);
+    selectedButton = button;
+}
+
+let icon1 = document.getElementById("icon1");
+let menu1 = document.getElementById("menu1");
+
+const showMenu1 = (flag) => {
+    if (flag) {
+        icon1.classList.toggle("rotate-180");
+        menu1.classList.toggle("hidden");
+    }
+};
+
+let icon2 = document.getElementById("icon2");
+
+const showMenu2 = (flag) => {
+    if (flag) {
+        icon2.classList.toggle("rotate-180");
+    }
+};
+
+let icon3 = document.getElementById("icon3");
+
+const showMenu3 = (flag) => {
+    if (flag) {
+        icon3.classList.toggle("rotate-180");
+    }
+};
+
+let Main = document.getElementById("Main");
+let open = document.getElementById("open");
+let close = document.getElementById("close");
+
+const showNav = (flag) => {
+    if (flag) {
+        Main.classList.toggle("-translate-x-full");
+        Main.classList.toggle("translate-x-0");
+        open.classList.toggle("hidden");
+        close.classList.toggle("hidden");
+    }
+};
+	</script>

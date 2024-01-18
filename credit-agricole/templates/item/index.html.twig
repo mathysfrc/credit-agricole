@@ -1,0 +1,281 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DÉTAILS
+{% endblock %}
+
+{% block stylesheet %}
+	{{ parent() }}
+{% endblock %}
+
+{% block body %}
+	{% if app.user %}
+		{% include '/components/navbar.html.twig' %}
+
+
+		<nav class="flex ml-8 mt-10" aria-label="Breadcrumb">
+			<ol class="inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse">
+				<li class="inline-flex items-center">
+					<a href="{{ path('app_home')}}" class="inline-flex items-center text-sm font-medium text-gray-700 hover:text-blue-600 dark:text-gray-400 dark:hover:text-grey">
+						Catalogue
+					</a>
+				</li>
+				<li>
+					<div class="flex items-center">
+						/
+						<a href="#" class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-grey">{{ card.title }}</a>
+					</div>
+				</li>
+			</ol>
+		</nav>
+		{{ form_start(form)}}
+<div class="flex">
+            <!-- Moitié gauche pour l'image -->
+            <div class="w-1/2 rounded-xl overflow-hidden bg-lightgrey ml-8 mt-8 mr-4">
+                <!-- Boutons pour ajouter du texte et une image -->
+                <button type="button" id="addTextBtn">Ajouter du texte</button>
+
+
+                <canvas id="canvas" class="image w-full object-cover rounded-t-lg h-full"></canvas>
+            </div>
+
+			<!-- Moitié droite pour les informations -->
+			<div class="w-1/2 ml-4 mr-8 mt-8">
+				<div
+					class="border-b border-grey border-opacity-20">
+					<!-- Description de la carte en question -->
+					<h2 class="text-2xl font-medium mb-8">{{ card.title }}</h2>
+					<p class="text-lg font-medium mb-3">Description</p>
+					<p class="text-grey mb-8">{{ card.description }}</p>
+				</div>
+
+				<!-- Formulaire d'insertion des éléments personnels -->
+
+				<p class="text-lg font-medium mt-10 mb-3">Renseignez vos informations</p>
+
+
+				<p class="text-lg font-medium mt-10 mb-3">Renseignez vos informations</p>
+
+				<div class=" grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6 border-b border-grey border-opacity-20">
+					<div class="sm:col-span-3">
+						<div class="mt-3 mb-2 font-medium">
+							{{ form_row(form.lastName, {
+                            'label': 'Nom',
+							'id': 'form_lastName',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.lastName ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+
+					<div class="sm:col-span-3 text-black">
+						<div class="mt-3 mb-2 font-medium">
+							{{ form_row(form.firstName, {
+                            'label': 'Prénom',
+							'id': 'form_firstName',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.firstName ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+
+					<div class="sm:col-span-3 text-black">
+						<div class="mt-3 mb-2 font-medium">
+							{{ form_row(form.fonction, {
+                            'label': 'Fonction',
+							'id': 'form_fonction',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.fonction ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+
+					<div class="col-span-3 text-black">
+						<div class="mt-3 mb-2 font-medium">
+							{{ form_row(form.email, {
+							'id': 'form_email',
+                            'label': 'E-mail',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.email ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+
+					<div class="sm:col-span-3 text-black">
+						<div class="mt-3 mb-2 font-medium">
+							{{ form_row(form.mobilePhone, {
+							'id': 'form_mobilePhone',
+                            'label': 'Téléphone mobile',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.mobilePhone ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+
+					<div class="sm:col-span-3 text-black mb-12">
+						<div class="mt-3 mb-2 font-medium ">
+							{{ form_row(form.housePhone, {
+                            'label': 'Téléphone fixe',
+							'id': 'housePhone',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                                'value': app.user.housePhone ?? ''
+                            }
+                        }) }}
+						</div>
+					</div>
+					<div class="sm:col-span-3 text-black mb-12">
+						<div class="mt-3 mb-2 font-medium ">
+							{{ form_row(form.quantity, {
+                            'label': 'Quantitée',
+							'id': 'form_quantity',
+                            'attr': {
+                                'class': 'form-control mt-2 block w-full rounded-md py-1.5 text-black font-normal bg-[#FFFFFF] placeholder:text-gray-400 border border-grey border-opacity-20',
+                            }
+                        }) }}
+						</div>
+					</div>
+				</div>
+                 <a href="#" onclick="printCanvasToImage()">Cliquez ICI</a>
+                <button type="submit" class="bg-blue border border-grey border-opacity-20 w-full mt-10 text-white font-semibold py-2 px-4 rounded" id="add-to-cart-btn">Ajouter au panier</button>
+			</div>
+		</div>
+		{{ form_end(form )}}
+</div>
+
+
+		{% include '/components/footer.html.twig' %}
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+    <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function () {
+                var canvas = new fabric.Canvas('canvas');
+
+    // Fonction pour ajouter du texte
+                function addText() {
+                    var text = new fabric.IText('Votre texte ici', {
+                        left: 100,
+                        top: 50,
+                        fontSize: 10,
+                        fill: 'black'
+                    });
+
+                    canvas.add(text);
+                }
+
+    // Ajoutez un bouton pour ajouter du texte
+                    document.getElementById('addTextBtn').addEventListener('click', function () {
+                        addText();
+                    });
+
+                    // Ajoutez un bouton pour ajouter une image
+
+
+                    function updateCanvasFromForm() {
+                            // Effacez le canevas existant
+                            canvas.clear();
+
+                            // Récupérez les valeurs du formulaire
+                            var lastName = document.getElementById('form_lastName').value;
+                            var firstName = document.getElementById('form_firstName').value;
+                            var fonction = document.getElementById('form_fonction').value;
+                            var email = document.getElementById('form_email').value;
+
+
+
+                            // Ajoutez du texte avec les informations du formulaire
+                            var userInfoText = new fabric.IText( lastName  + ' ' +  firstName + '\n' + fonction + '\n' + email,{
+                                left: 70,
+                                top: 50,
+                                fontSize: 10,
+                                fill: 'black'
+                            });
+
+                            canvas.add(userInfoText);
+                        }
+
+    // Ajoutez des écouteurs d'événements pour les champs du formulaire
+                        document.getElementById('form_lastName').addEventListener('input', updateCanvasFromForm);
+                        document.getElementById('form_firstName').addEventListener('input', updateCanvasFromForm);
+                        document.getElementById('form_fonction').addEventListener('input', updateCanvasFromForm);
+                        document.getElementById('form_email').addEventListener('input', updateCanvasFromForm);
+
+            });
+
+                            function printCanvasToImage() {
+                    html2canvas(document.getElementById('canvas')).then(function (canvas) {
+                        var imageData = canvas.toDataURL('image/png');
+
+                        fetch('{{ path('save_image')}}', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ imageData: imageData }),
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            console.log(data.message);
+                            console.log('PDF Path:', data.pdf_path);
+                            
+
+                            // Ouvrez l'image dans une nouvelle fenêtre pour vérification
+                            var windowContent = '<img src="' + imageData + '">';
+                            var printWindow = window.open('', '_blank');
+                            printWindow.document.open();
+                            printWindow.document.write('<html><body>' + windowContent + '</body></html>');
+                            printWindow.document.close();
+                        })
+                        .catch(error => console.error('Error:', error));
+
+                    });
+                }
+                
+</script>
+	{% endif %}
+{% endblock %}
+
+
+
+
+		{# <script src="https://unpkg.com/konva@9/konva.min.js"></script>
+  <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser Konva.js et configurer le canevas
+            var stage = new Konva.Stage({
+                container: 'canvas-container',
+                width: window.innerWidth,
+                height: window.innerHeight
+            });
+
+            var layer = new Konva.Layer();
+            stage.add(layer);
+
+            // Ajoutez un rectangle au canevas
+            var rect = new Konva.Rect({
+                x: 50,
+                y: 50,
+                width: 100,
+                height: 50,
+                fill: 'blue',
+                draggable: true  // Permet au rectangle d'être déplacé
+            });
+
+            // Ajoutez le rectangle à la couche
+            layer.add(rect);
+
+            // Rafraîchissez la couche pour voir le rectangle
+            layer.draw();
+        });
+    </script> #}

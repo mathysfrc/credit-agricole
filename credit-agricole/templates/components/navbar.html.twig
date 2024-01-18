@@ -1,0 +1,49 @@
+<div class="bg-darkblue p-2">
+	<div class="flex items-center justify-between text-white pr-4">
+		{% if (is_granted('ROLE_ADMIN')) %}
+			<div class="items-center justify-start text-right pl-4">
+				<a href="{{ path('app_card_index') }}" class="flex">{% include 'icons/admin.svg' %}&nbsp Administration</a>
+			</div>
+		{% endif %}
+
+		{% if user %}
+			<div class="items-center justify-start text-right pl-4"></div>
+			<div class="flex items-center justify-end text-right">
+				<p class="text-white">Bienvenue
+					{{ user.firstName }}</p>
+				<span class="text-white">&nbsp;|&nbsp;</span>
+				<a href="/logout" class="inline-block">{% include 'icons/logout.svg' %}</a>
+			</div>
+		{% else %}
+			<p class="text-white text-right pr-4">Bienvenue Utilisateur</p>
+		{% endif %}
+	</div>
+
+
+</div>
+<nav class="bg-gray-800 border-b border-grey border-opacity-20">
+	<div class="mx-auto px-2 sm:px-6 lg:px-8">
+		<div class="flex h-16 items-center justify-between">
+			<div class="hidden sm:flex items-center">
+				<img class="h-8 w-auto" src="{{ asset('build/images/ISF-bleu.svg' )}}" alt="Logo couleur">
+
+			</div>
+
+			<!-- Centered Menu Tab -->
+
+
+			<div class="flex items-center justify-center mx-auto">
+				<a href="{{ path('app_home')}}" class="text-gray-300 hover:bg-gray-700 hover:text-blue rounded-md text-2xl py-2 text-sm font-medium">Menu</a>
+			</div>
+
+
+			<div class="flex items-center">
+				<div class="flex-shrink-0">
+					<a href="{{ path('app_basket')}}">
+						<img class="h-8 w-auto" src="{{ asset('build/images/Panier.svg' )}}" alt="Panier">
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</nav>

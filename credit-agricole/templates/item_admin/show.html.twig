@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Item{% endblock %}
+
+{% block body %}
+    <h1>Item</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ item.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ item.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ item.lastName }}</td>
+            </tr>
+            <tr>
+                <th>Fonction</th>
+                <td>{{ item.fonction }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ item.email }}</td>
+            </tr>
+            <tr>
+                <th>MobilePhone</th>
+                <td>{{ item.mobilePhone }}</td>
+            </tr>
+            <tr>
+                <th>HousePhone</th>
+                <td>{{ item.housePhone }}</td>
+            </tr>
+            <tr>
+                <th>Quantity</th>
+                <td>{{ item.quantity }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_item_admin_index') }}">back to list</a>
+
+    <a href="{{ path('app_item_admin_edit', {'id': item.id}) }}">edit</a>
+
+    {{ include('item_admin/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,97 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+
+:root {
+    --white: #FFFFFF;
+    --dark-blue: #111827;
+    --blue: #3D4797;
+    --grey: #64748B;
+    --black: #020617;
+    --green: #1aff00;
+}
+
+.selected {
+    background-color: var(--blue);
+    color: white;
+}
+
+.selected-choice {
+    background-color: #1E293B;
+}
+
+input#user_roles_1 {
+    border-radius: 0.25rem;
+    margin-left: 2rem
+}
+
+input#user_roles_0 {
+    border-radius: 0.25rem
+}
+
+div#user_roles {
+    margin-top: 0.5rem
+}
+
+.slideover-bg-noir {
+    background-color: var(--black);
+}
+
+.back-image-home {
+    width: 384px;
+    height: 384px;
+}
+
+.image-home {
+    max-width: 380px;
+    max-height: 380px;
+}
+
+.image-admin-card {
+    width: 384px;
+    height: auto;
+}
+
+.image-basket {
+    width: 300px;
+}
+
+.image-details {
+    max-width: 900px;
+    max-height: 950px;
+    margin: auto !important;
+}
+
+.flash {
+    background-color:  #b3f1ca;
+    border-radius: 5px;
+    color: #2f8f54;
+    font-weight:500;
+    width: fit-content;
+    margin: auto;
+    padding: 1rem;
+    z-index: 1000;
+    position: absolute;
+    top: 5;
+    right: 0;
+    margin-top: 7rem;
+    margin-right: 0.5rem;
+}
+
+
+.canvas-container {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+#canvas {
+    background-color: #1aff00;
+    z-index: 0;
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.upper-canvas {
+    height: 100% !important;
+    width: 100% !important;
+}
